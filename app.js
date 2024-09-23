@@ -7,6 +7,8 @@ document.getElementById('fillPdf').addEventListener('click', async () => {
     const lastName = document.getElementById('lastName').value
     const dateOfBirth = new Date(document.getElementById('dateOfBirth').value)
     const yearOfBirth = dateOfBirth.getFullYear().toString()
+
+    // TODO: These two lines are not working right xd
     const monthOfBirth = dateOfBirth.getMonth().toString()
     const dayOfBirth = dateOfBirth.getDay().toString()
 
