@@ -1,3 +1,6 @@
+const MALE = 'Male'
+const FEMALE = 'Female'
+
 document.getElementById('fillPdf').addEventListener('click', async () => {
     // Load the fillable PDF (make sure it's in the same directory)
     const existingPdfBytes = await fetch('application-form.pdf').then(res => res.arrayBuffer());
@@ -7,10 +10,12 @@ document.getElementById('fillPdf').addEventListener('click', async () => {
     const lastName = document.getElementById('lastName').value
     const dateOfBirth = new Date(document.getElementById('dateOfBirth').value)
     const yearOfBirth = dateOfBirth.getFullYear().toString()
+    const sex = document.getElementById('sex').value;
+    
 
     // TODO: These two lines are not working right xd
-    const monthOfBirth = dateOfBirth.getMonth().toString()
-    const dayOfBirth = dateOfBirth.getDay().toString()
+    const monthOfBirth = (dateOfBirth.getMonth() + 1).toString()
+    const dayOfBirth = dateOfBirth.getDate().toString()
 
 
     // Load the PDF into PDF-lib
@@ -34,6 +39,13 @@ document.getElementById('fillPdf').addEventListener('click', async () => {
 
     const dayOfBirthField = form.getTextField('birth-day');
     dayOfBirthField.setText(dayOfBirth);
+
+    const maleCheckbox = form.getCheckBox('sex-male');
+    const femaleCheckbox = form.getCheckBox('sex-female');
+
+    if(sex === MALE) maleCheckbox.check(); 
+    if(sex === FEMALE) femaleCheckbox.check(); 
+
 
     // const emailField = form.getTextField('email');
     // emailField.setText('jane.doe@example.com');
