@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fill Fillable PDF</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>통합신청서 (신고서) APPLICATION FORM (REPORT FORM)</h1>
 
     <form>
-        
         Please fill the form
         <br> <br>
         <form id="userForm">
@@ -27,30 +27,37 @@
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select><br><br>
-                        <!--
+
             <label for="nationality">Nationality:</label>
-            <input type="text" id="nationality" name="nationality" required><br><br>
-    
+            <select id="nationality" name="nationality" required>
+                <option value="" disabled selected>Select your country</option>
+            </select>
+            <script src="countrySelector.js"></script>
+            <br><br>
+            
             <label for="passportNumber">Passport Number:</label>
             <input type="text" id="passportNumber" name="passportNumber" required><br><br>
-    
+            
             <label for="passportIssueDate">Passport Issue Date:</label>
             <input type="date" id="passportIssueDate" name="passportIssueDate" required><br><br>
     
             <label for="passportExpiryDate">Passport Expiry Date:</label>
             <input type="date" id="passportExpiryDate" name="passportExpiryDate" required><br><br>
-    
+
             <label for="addressKorea">Address in Korea:</label>
             <input type="text" id="addressKorea" name="addressKorea" required><br><br>
     
             <label for="telephoneNumber">Telephone Number:</label>
             <input type="tel" id="telephoneNumber" name="telephoneNumber"><br><br>
     
-            <label for="cellphoneNumber">Cellphone Number:</label>
-            <input type="tel" id="cellphoneNumber" name="cellphoneNumber" required><br><br>
-    
+            <label for="phoneNumber">Cellphone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required><br><br>
+
             <label for="addressHomeCountry">Address in Home Country:</label>
-            <input type="text" id="addressHomeCountry" name="addressHomeCountry" required><br><br> -->
+            <input type="text" id="addressHomeCountry" name="addressHomeCountry" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="example@example.com" required><br><br>
     
             <button type="button" id="fillPdf">Generate Filled PDF</button>
         

@@ -11,9 +11,16 @@ document.getElementById('fillPdf').addEventListener('click', async () => {
     const dateOfBirth = new Date(document.getElementById('dateOfBirth').value)
     const yearOfBirth = dateOfBirth.getFullYear().toString()
     const sex = document.getElementById('sex').value;
+    const nationality = document.getElementById('nationality').value.toString().toUpperCase();
+    const passportNumber = document.getElementById('passportNumber').value;
+    const passportIssueDate = document.getElementById('passportIssueDate').value;
+    const passportExpiryDate = document.getElementById('passportExpiryDate').value;
+    const addressKorea = document.getElementById('addressKorea').value;
+    const telephoneNumber = document.getElementById('telephoneNumber').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const addressHomeCountry = document.getElementById('addressHomeCountry').value;
+    const email = document.getElementById('email').value;
     
-
-    // TODO: These two lines are not working right xd
     const monthOfBirth = (dateOfBirth.getMonth() + 1).toString()
     const dayOfBirth = dateOfBirth.getDate().toString()
 
@@ -46,12 +53,33 @@ document.getElementById('fillPdf').addEventListener('click', async () => {
     if(sex === MALE) maleCheckbox.check(); 
     if(sex === FEMALE) femaleCheckbox.check(); 
 
+    const nationalityField = form.getTextField('nationality');
+    nationalityField.setText(nationality);
 
-    // const emailField = form.getTextField('email');
-    // emailField.setText('jane.doe@example.com');
+    const passportNumberField = form.getTextField('passport-number');
+    passportNumberField.setText(passportNumber);
 
-    // const phoneField = form.getTextField('phone');
-    // phoneField.setText('987-654-3210');
+    const passportIssueDateField = form.getTextField('passport-issue-date');
+    passportIssueDateField.setText(passportIssueDate);
+
+    const passportExpiryDateField = form.getTextField('passport-expiry-date');
+    passportExpiryDateField.setText(passportExpiryDate);
+
+    const addressKoreaField = form.getTextField('address-korea');
+    addressKoreaField.setText(addressKorea);
+    
+    const telephoneNumberField = form.getTextField('telephone-number');
+    telephoneNumberField.setText(telephoneNumber);
+
+    const phoneNumberField = form.getTextField('phone-number');
+    phoneNumberField.setText(phoneNumber);
+
+    const addressHomeCountryField = form.getTextField('address-home-country');
+    addressHomeCountryField.setText(addressHomeCountry);
+
+    const emailField = form.getTextField('email');
+    emailField.setText(email);
+
 
     // Save the modified PDF
     const pdfBytes = await pdfDoc.save();
