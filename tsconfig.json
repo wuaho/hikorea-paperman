@@ -1,19 +1,25 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
+    "compilerOptions": {
+        "baseUrl": ".",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "incremental": true,
+        "skipLibCheck": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "strictBindCallApply": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "paths": {
+            "@backend/*": [
+                "./apps/backend/src/*"
+            ],
+            "@frontend/*": [
+                "./apps/frontend/*"
+            ],
+            "@shared/*": [
+                "./shared/*"
+            ]
+        }
     }
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  }
 }
