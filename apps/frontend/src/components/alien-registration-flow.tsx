@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -9,75 +9,97 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from '@/components/ui/select';
+import { Progress } from '@/components/ui/progress';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { ChevronRight, FileDown, HelpCircle } from "lucide-react";
-import { motion } from "framer-motion";
-import mascotImage from "./../assets/hikorea-mascot.png";
+} from '@/components/ui/tooltip';
+import { ChevronRight, FileDown, HelpCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+import mascotImage from './../assets/hikorea-mascot.png';
 
 const countries = [
-  { code: "kr", name: "Korea", flag: "🇰🇷" },
-  { code: "us", name: "United States", flag: "🇺🇸" },
-  { code: "jp", name: "Japan", flag: "🇯🇵" },
-  { code: "cn", name: "China", flag: "🇨🇳" },
-  { code: "gb", name: "United Kingdom", flag: "🇬🇧" },
-  { code: "de", name: "Germany", flag: "🇩🇪" },
-  { code: "fr", name: "France", flag: "🇫🇷" },
-  { code: "ca", name: "Canada", flag: "🇨🇦" },
-  { code: "au", name: "Australia", flag: "🇦🇺" },
-  { code: "in", name: "India", flag: "🇮🇳" },
+  { code: 'kr', name: 'Korea', flag: '🇰🇷' },
+  { code: 'us', name: 'United States', flag: '🇺🇸' },
+  { code: 'jp', name: 'Japan', flag: '🇯🇵' },
+  { code: 'cn', name: 'China', flag: '🇨🇳' },
+  { code: 'gb', name: 'United Kingdom', flag: '🇬🇧' },
+  { code: 'de', name: 'Germany', flag: '🇩🇪' },
+  { code: 'fr', name: 'France', flag: '🇫🇷' },
+  { code: 'ca', name: 'Canada', flag: '🇨🇦' },
+  { code: 'au', name: 'Australia', flag: '🇦🇺' },
+  { code: 'in', name: 'India', flag: '🇮🇳' },
 ];
 
-const generatePDF = (data: unknown) => {
-  console.log("Generating PDF with data:", data);
-  alert("PDF generated! (This is a mock function)");
-};
+// const generatePDF = async (formData: unknown) => {
+//   try {
+//     const response = await axios.post('https://localhost:3000', formData, {
+//       responseType: 'blob', // Ensure the response is treated as a file
+//     });
+
+//     const blob = new Blob([response.data], { type: 'application/pdf' });
+//     const link = document.createElement('a');
+//     link.href = window.URL.createObjectURL(blob);
+//     link.download = 'generated_document.pdf';
+//     link.click();
+//   } catch (error) {
+//     console.error('Error generating PDF:', error);
+//   }
+// };
+
+async function helloWorld() {
+  try {
+    const response = await axios.get('https://localhost:3000');
+    const data = response.data;
+    console.log('Response from backend:', data); // Debería imprimir "Hello World!"
+  } catch (error) {
+    console.error('Something went wrong when calling the backend:', error);
+  }
+}
 
 const fieldLabels: { [key: string]: string } = {
-  firstName: "First Name",
-  lastName: "Last Name",
-  email: "Email",
-  birthday: "Date of Birth",
-  nationality: "Nationality",
-  sex: "Sex",
-  telephone: "Telephone Number",
-  mobile: "Mobile Number",
-  addressKorea: "Address in Korea",
-  addressHome: "Address in Home Country",
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  email: 'Email',
+  birthday: 'Date of Birth',
+  nationality: 'Nationality',
+  sex: 'Sex',
+  telephone: 'Telephone Number',
+  mobile: 'Mobile Number',
+  addressKorea: 'Address in Korea',
+  addressHome: 'Address in Home Country',
 };
 
 const fieldHelpers: { [key: string]: string } = {
   firstName:
-    "Enter your given name as it appears on passport (2-50 characters, no special characters)",
+    'Enter your given name as it appears on passport (2-50 characters, no special characters)',
   lastName:
-    "Enter your family name as it appears on passport (2-50 characters, no special characters)",
-  email: "Provide a valid email address for communication",
+    'Enter your family name as it appears on passport (2-50 characters, no special characters)',
+  email: 'Provide a valid email address for communication',
   birthday:
-    "Enter your date of birth as shown on passport (must be in the past)",
-  nationality: "Select your country of citizenship",
-  sex: "Select your gender as it appears on official documents",
-  telephone: "Enter your landline number (if available)",
-  mobile: "Enter your mobile phone number",
+    'Enter your date of birth as shown on passport (must be in the past)',
+  nationality: 'Select your country of citizenship',
+  sex: 'Select your gender as it appears on official documents',
+  telephone: 'Enter your landline number (if available)',
+  mobile: 'Enter your mobile phone number',
   addressKorea:
-    "Provide your current address in Korea (if applicable, 5-100 characters)",
+    'Provide your current address in Korea (if applicable, 5-100 characters)',
   addressHome:
-    "Enter your permanent address in home country (5-100 characters)",
+    'Enter your permanent address in home country (5-100 characters)',
 };
 
 const validateField = (field: string, value: string): string | null => {
@@ -87,29 +109,29 @@ const validateField = (field: string, value: string): string | null => {
   const addressRegex = /^.{5,100}$/;
 
   switch (field) {
-    case "firstName":
-    case "lastName":
+    case 'firstName':
+    case 'lastName':
       return nameRegex.test(value)
         ? null
-        : "Name must be 2-50 characters long and contain only letters spaces";
-    case "email":
+        : 'Name must be 2-50 characters long and contain only letters spaces';
+    case 'email':
       return emailRegex.test(value)
         ? null
-        : "Please enter a valid email address";
-    case "birthday": {
+        : 'Please enter a valid email address';
+    case 'birthday': {
       const date = new Date(value);
       return date <= new Date()
         ? null
-        : "Date of birth cannot be in the future";
+        : 'Date of birth cannot be in the future';
     }
-    case "telephone":
-    case "mobile":
-      return phoneRegex.test(value) ? null : "Phone number must be 9-11 digits";
-    case "addressKorea":
-    case "addressHome":
+    case 'telephone':
+    case 'mobile':
+      return phoneRegex.test(value) ? null : 'Phone number must be 9-11 digits';
+    case 'addressKorea':
+    case 'addressHome':
       return addressRegex.test(value)
         ? null
-        : "Address must be 5-100 characters long";
+        : 'Address must be 5-100 characters long';
     default:
       return null;
   }
@@ -118,34 +140,34 @@ const validateField = (field: string, value: string): string | null => {
 export function AlienRegistrationFlow() {
   const [step, setStep] = useState(-1);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    birthday: "",
-    nationality: "",
-    sex: "",
-    telephone: "",
-    mobile: "",
-    addressKorea: "",
-    addressHome: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    birthday: '',
+    nationality: '',
+    sex: '',
+    telephone: '',
+    mobile: '',
+    addressKorea: '',
+    addressHome: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
 
   const steps = [
     {
-      title: "Personal Information",
-      fields: ["firstName", "lastName", "email"],
+      title: 'Personal Information',
+      fields: ['firstName', 'lastName', 'email'],
     },
     {
-      title: "Additional Details",
-      fields: ["birthday", "nationality", "sex"],
+      title: 'Additional Details',
+      fields: ['birthday', 'nationality', 'sex'],
     },
-    { title: "Contact Information", fields: ["telephone", "mobile"] },
+    { title: 'Contact Information', fields: ['telephone', 'mobile'] },
     {
-      title: "Address Information",
-      fields: ["addressKorea", "addressHome"],
+      title: 'Address Information',
+      fields: ['addressKorea', 'addressHome'],
     },
-    { title: "Review and Submit", fields: [] },
+    { title: 'Review and Submit', fields: [] },
   ];
 
   const updateField = (field: string, value: string) => {
@@ -158,10 +180,10 @@ export function AlienRegistrationFlow() {
     if (stepIndex === -1) return true;
     return steps[stepIndex].fields.every(
       (field) =>
-        (field === "telephone" || field === "mobile" || field === "addressKorea"
+        (field === 'telephone' || field === 'mobile' || field === 'addressKorea'
           ? true
-          : formData[field as keyof typeof formData]?.trim() !== "") &&
-        !errors[field]
+          : formData[field as keyof typeof formData]?.trim() !== '') &&
+        !errors[field],
     );
   };
 
@@ -181,11 +203,11 @@ export function AlienRegistrationFlow() {
           className="absolute -top-40 -right-12 h-64 w-64 object-contain"
         />
         <CardHeader className="bg-[#013563] text-white">
-          <CardTitle>{step === -1 ? "Welcome" : steps[step].title}</CardTitle>
+          <CardTitle>{step === -1 ? 'Welcome' : steps[step].title}</CardTitle>
           <CardDescription className="text-gray-200">
             {step === -1
-              ? "What help do you need?"
-              : "Please fill in the required information"}
+              ? 'What help do you need?'
+              : 'Please fill in the required information'}
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-6">
@@ -236,7 +258,7 @@ export function AlienRegistrationFlow() {
                         </Tooltip>
                       </TooltipProvider>
                     </div>
-                    {field === "nationality" ? (
+                    {field === 'nationality' ? (
                       <Select
                         onValueChange={(value) => updateField(field, value)}
                       >
@@ -260,7 +282,7 @@ export function AlienRegistrationFlow() {
                           ))}
                         </SelectContent>
                       </Select>
-                    ) : field === "sex" ? (
+                    ) : field === 'sex' ? (
                       <RadioGroup
                         onValueChange={(value) => updateField(field, value)}
                         className="flex space-x-4 mt-1"
@@ -274,7 +296,7 @@ export function AlienRegistrationFlow() {
                           <Label htmlFor="female">Female</Label>
                         </div>
                       </RadioGroup>
-                    ) : field === "telephone" || field === "mobile" ? (
+                    ) : field === 'telephone' || field === 'mobile' ? (
                       <div className="flex items-center mt-1">
                         <span className="mr-2">+82</span>
                         <Input
@@ -289,11 +311,11 @@ export function AlienRegistrationFlow() {
                       <Input
                         id={field}
                         type={
-                          field === "email"
-                            ? "email"
-                            : field === "birthday"
-                            ? "date"
-                            : "text"
+                          field === 'email'
+                            ? 'email'
+                            : field === 'birthday'
+                              ? 'date'
+                              : 'text'
                         }
                         value={formData[field as keyof typeof formData]}
                         onChange={(e) => updateField(field, e.target.value)}
@@ -323,13 +345,13 @@ export function AlienRegistrationFlow() {
                       {fieldLabels[key]}:
                     </strong>
                     <span>
-                      {key === "nationality"
+                      {key === 'nationality'
                         ? `${countries.find((c) => c.code === value)?.flag} ${
                             countries.find((c) => c.code === value)?.name
                           }`
-                        : (key === "telephone" || key === "mobile"
+                        : (key === 'telephone' || key === 'mobile'
                             ? `+82 ${value}`
-                            : value) || "Not provided"}
+                            : value) || 'Not provided'}
                     </span>
                   </p>
                 ))}
@@ -357,7 +379,7 @@ export function AlienRegistrationFlow() {
             </Button>
           ) : step === steps.length - 1 ? (
             <Button
-              onClick={() => generatePDF(formData)}
+              onClick={() => helloWorld()}
               className="bg-[#013563] hover:bg-[#014583] transition-colors"
             >
               Generate PDF <FileDown className="ml-2 h-4 w-4" />
