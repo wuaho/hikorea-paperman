@@ -1,4 +1,4 @@
-export class ForeignRegistrationFormDto {
+export class ForeignerRegistrationFormDto {
   // TODO add field validations
   // TODO put similar properties into the same key
 
@@ -13,8 +13,6 @@ export class ForeignRegistrationFormDto {
   passportExpiryDate: string;
   passportIssueDate: string;
   passportNumber: string;
-  phoneNumber: string;
   sex: string;
   telephone: string;
-  telephoneNumber: string;
 }
