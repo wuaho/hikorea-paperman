@@ -45,31 +45,25 @@ const countries = [
   { code: 'in', name: 'India', flag: '🇮🇳' },
 ];
 
-// const generatePDF = async (formData: unknown) => {
-//   try {
-//     const response = await axios.post('https://localhost:3000', formData, {
-//       responseType: 'blob', // Ensure the response is treated as a file
-//     });
-
-//     const blob = new Blob([response.data], { type: 'application/pdf' });
-//     const link = document.createElement('a');
-//     link.href = window.URL.createObjectURL(blob);
-//     link.download = 'generated_document.pdf';
-//     link.click();
-//   } catch (error) {
-//     console.error('Error generating PDF:', error);
-//   }
-// };
-
-async function helloWorld() {
+const generatePDF = async (formData: unknown) => {
   try {
-    const response = await axios.get('https://localhost:3000');
-    const data = response.data;
-    console.log('Response from backend:', data); // Debería imprimir "Hello World!"
+    const response = await axios.post(
+      '/api/documents/registerForeignResident',
+      formData,
+      {
+        responseType: 'blob',
+      },
+    );
+
+    const blob = new Blob([response.data], { type: 'application/pdf' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'generated_document.pdf';
+    link.click();
   } catch (error) {
-    console.error('Something went wrong when calling the backend:', error);
+    console.error('Error generating PDF:', error);
   }
-}
+};
 
 const fieldLabels: { [key: string]: string } = {
   firstName: 'First Name',
@@ -379,7 +373,7 @@ export function AlienRegistrationFlow() {
             </Button>
           ) : step === steps.length - 1 ? (
             <Button
-              onClick={() => helloWorld()}
+              onClick={() => generatePDF(formData)}
               className="bg-[#013563] hover:bg-[#014583] transition-colors"
             >
               Generate PDF <FileDown className="ml-2 h-4 w-4" />
