@@ -17,22 +17,36 @@ import {
 } from '@/components/ui/form';
 import { PhoneInput } from '@/components/ui/phone-input';
 import { Input } from '@/components/ui/input';
+import { useStateMachine } from 'little-state-machine';
+import updateAction from './update-action';
+import { useNavigate } from 'react-router';
 
 const formSchema = z.object({
-  phoneNumber: z.string().min(9).max(11),
-  telephoneNumber: z.string().min(9).max(11),
+  mobile: z.string().min(9).max(13),
+  telephone: z.string().min(9).max(13),
   addressKorea: z.string().min(5).max(100),
   addressHomeCountry: z.string().min(5).max(100),
 });
 
-export default function AddressInfoForm() {
+export function Step3Form() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    //TODO default values to remove after testing
+    defaultValues: {
+      mobile: '+821011112222',
+      telephone: '+821022223333',
+      addressKorea: '456 Gangnam-daero, Seoul, South Korea',
+      addressHomeCountry: 'Calle Pureza Numero 1,Sevilla, Spain',
+    },
   });
+  const { actions } = useStateMachine({ updateAction });
+  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
+      actions.updateAction(values);
+      navigate('/step4');
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(values, null, 2)}</code>
@@ -54,7 +68,7 @@ export default function AddressInfoForm() {
           <div className="col-span-6">
             <FormField
               control={form.control}
-              name="phoneNumber"
+              name="mobile"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-start">
                   <FormLabel>Phone number</FormLabel>
@@ -75,7 +89,7 @@ export default function AddressInfoForm() {
           <div className="col-span-6">
             <FormField
               control={form.control}
-              name="telephoneNumber"
+              name="telephone"
               render={({ field }) => (
                 <FormItem className="flex flex-col items-start">
                   <FormLabel>Telephone Number</FormLabel>
@@ -125,7 +139,7 @@ export default function AddressInfoForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Next</Button>
       </form>
     </Form>
   );

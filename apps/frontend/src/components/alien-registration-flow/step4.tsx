@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import SignatureInput from '@/components/ui/signature-input';
+import { useNavigate } from 'react-router';
 
 const FormSchema = z.object({
   signature: z.string().min(1, 'Please sign the form'),
@@ -23,14 +24,17 @@ const FormSchema = z.object({
 
 type SignatureFormData = z.infer<typeof FormSchema>;
 
-export function SignatureForm() {
+export function Step4Form() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const form = useForm<SignatureFormData>({
     resolver: zodResolver(FormSchema),
   });
+  const navigate = useNavigate();
 
   const onSubmit = (data: SignatureFormData) => {
     // console.log('Signature Data URL:', data.signature)
+    navigate('/result');
+
     toast(
       <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
         <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -60,7 +64,7 @@ export function SignatureForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Sign and next</Button>
       </form>
     </Form>
   );
