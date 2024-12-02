@@ -1,4 +1,22 @@
-import { ForeignerRegistrationFormDto as ForeignerRegistrationFormSharedDto } from '@shared/dtos/foreigner-registration-form.dto';
+//TODO fix this import, not working due to project configuration
+//import { ForeignerRegistrationFormDto as ForeignerRegistrationFormSharedDto } from '@shared/dtos/foreigner-registration-form.dto';
+//export class ForeignerRegistrationFormDto extends ForeignerRegistrationFormSharedDto {}
 
-export class ForeignerRegistrationFormDto extends ForeignerRegistrationFormSharedDto {}
-// TODO add field validations
+export class ForeignerRegistrationFormDto {
+  // TODO put similar properties into the same key
+  // TODO add field validations
+
+  addressHomeCountry: string;
+  addressKorea: string;
+  dateOfBirth: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  nationality: string;
+  passportExpiryDate: string;
+  passportIssueDate: string;
+  passportNumber: string;
+  sex: string;
+  telephone: string;
+}
