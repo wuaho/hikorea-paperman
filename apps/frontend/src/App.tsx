@@ -23,9 +23,8 @@ createStore({
     passportExpiryDate: '',
     passportIssueDate: '',
     passportNumber: '',
-    phoneNumber: '',
     sex: '',
-    telephoneNumber: '',
+    telephone: '',
   },
 });
 
