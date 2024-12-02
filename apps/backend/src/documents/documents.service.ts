@@ -6,8 +6,8 @@ import { PDFDocument, PDFForm } from 'pdf-lib';
 import { ForeignerRegistrationFormDto } from './dtos/foreigner-registration-form.dto';
 
 const APPLICATION_FORM = './forms/application-form.pdf';
-const FEMALE = 'Female';
-const MALE = 'Male';
+const FEMALE = 'female';
+const MALE = 'male';
 
 export const STRING_FIELDS_MAPPING = {
   addressHomeCountry: 'address-home-country',
@@ -67,9 +67,9 @@ export class DocumentsService {
       pdfField.setText(fieldValue);
     }
 
-    if (foreignRegistrationForm.sex === MALE)
+    if (foreignRegistrationForm.sex.toLowerCase() === MALE)
       pdfForm.getCheckBox('sex-male').check();
-    if (foreignRegistrationForm.sex === FEMALE)
+    if (foreignRegistrationForm.sex.toLowerCase() === FEMALE)
       pdfForm.getCheckBox('sex-female').check();
   }
 
