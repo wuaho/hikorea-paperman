@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -66,7 +66,7 @@ export function Step1Form() {
 
       const payloadAllStrings = {
         ...values,
-        birthday: values.birthday.toISOString(),
+        birthday: formatDate(values.birthday),
       };
 
       actions.updateAction(payloadAllStrings);

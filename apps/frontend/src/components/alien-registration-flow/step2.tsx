@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -60,8 +60,8 @@ export function Step2Form() {
       const payload = {
         ...values,
         nationality: values.nationality[0],
-        passportIssueDate: values.passportIssueDate.toISOString(),
-        passportExpiryDate: values.passportExpiryDate.toISOString(),
+        passportIssueDate: formatDate(values.passportIssueDate),
+        passportExpiryDate: formatDate(values.passportExpiryDate),
       };
 
       actions.updateAction(payload);
