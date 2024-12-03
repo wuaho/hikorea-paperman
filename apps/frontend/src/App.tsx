@@ -9,6 +9,7 @@ import {
   Step4Form,
   FormResult,
 } from './components/alien-registration-flow/index';
+import MainLayout from './components/main-layout';
 
 createStore({
   data: {
@@ -34,11 +35,13 @@ function App() {
       <BrowserRouter>
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
           <Routes>
-            <Route path="/" element={<Step1Form />} />
-            <Route path="/step2" element={<Step2Form />} />
-            <Route path="/step3" element={<Step3Form />} />
-            <Route path="/step4" element={<Step4Form />} />
-            <Route path="/result" element={<FormResult />} />
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Step1Form />} />
+              <Route path="/step2" element={<Step2Form />} />
+              <Route path="/step3" element={<Step3Form />} />
+              <Route path="/step4" element={<Step4Form />} />
+              <Route path="/result" element={<FormResult />} />
+            </Route>
             <Route path="/old" element={<AlienRegistrationFlow />} />
           </Routes>
         </div>
