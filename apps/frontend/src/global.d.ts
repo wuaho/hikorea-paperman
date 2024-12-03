@@ -8,7 +8,7 @@ declare module 'little-state-machine' {
     data: {
       addressHomeCountry: string;
       addressKorea: string;
-      dateOfBirth: string;
+      birthdate: string;
       email: string;
       firstName: string;
       lastName: string;

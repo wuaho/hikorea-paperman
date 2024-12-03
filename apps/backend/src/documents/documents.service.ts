@@ -52,7 +52,7 @@ export class DocumentsService {
       day: birthDay,
       month: birthMonth,
       year: birthYear,
-    } = this.parseDate(foreignRegistrationForm.dateOfBirth);
+    } = this.parseDate(foreignRegistrationForm.birthdate);
 
     const extendedForeignRegistrationForm = {
       ...foreignRegistrationForm,

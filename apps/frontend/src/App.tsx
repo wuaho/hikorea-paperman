@@ -14,7 +14,7 @@ createStore({
   data: {
     addressHomeCountry: '',
     addressKorea: '',
-    dateOfBirth: '',
+    birthdate: '',
     email: '',
     firstName: '',
     lastName: '',

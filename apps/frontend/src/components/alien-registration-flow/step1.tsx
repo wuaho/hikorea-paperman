@@ -39,8 +39,8 @@ const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
   email: z.string().email(),
-  birthday: z.coerce.date().refine((date) => date < new Date(), {
-    message: 'Birthday must be in the past',
+  birthdate: z.coerce.date().refine((date) => date < new Date(), {
+    message: 'Birthdate must be in the past',
   }),
   sex: z.string(),
 });
@@ -53,7 +53,7 @@ export function Step1Form() {
       firstName: 'Juanjo',
       lastName: 'Pérez',
       email: 'juanjo@test.com',
-      birthday: new Date('2000-01-01'),
+      birthdate: new Date('2000-01-01'),
       sex: 'male',
     },
   });
@@ -66,7 +66,7 @@ export function Step1Form() {
 
       const payloadAllStrings = {
         ...values,
-        birthday: formatDate(values.birthday),
+        birthdate: formatDate(values.birthdate),
       };
 
       actions.updateAction(payloadAllStrings);
@@ -153,7 +153,7 @@ export function Step1Form() {
           <div className="col-span-6">
             <FormField
               control={form.control}
-              name="birthday"
+              name="birthdate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Date of birth</FormLabel>

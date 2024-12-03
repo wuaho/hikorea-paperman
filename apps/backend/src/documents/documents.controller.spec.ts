@@ -24,7 +24,7 @@ describe('DocumentsController', () => {
       const dto: ForeignerRegistrationFormDto = {
         addressHomeCountry: '123 Main Street, Springfield, USA',
         addressKorea: '456 Gangnam-daero, Seoul, South Korea',
-        dateOfBirth: '1995-05-15',
+        birthdate: '1995-05-15',
         email: 'example@example.com',
         firstName: 'John',
         lastName: 'Doe',

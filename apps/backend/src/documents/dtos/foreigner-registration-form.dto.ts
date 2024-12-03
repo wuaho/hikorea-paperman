@@ -8,7 +8,7 @@ export class ForeignerRegistrationFormDto {
 
   addressHomeCountry: string;
   addressKorea: string;
-  dateOfBirth: string;
+  birthdate: string;
   email: string;
   firstName: string;
   lastName: string;

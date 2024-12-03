@@ -8,7 +8,7 @@ import { DocumentsService, STRING_FIELDS_MAPPING } from './documents.service';
 const foreignerRegistrationFields = {
   addressHomeCountry: '123 Home St',
   addressKorea: '456 Korea Rd',
-  dateOfBirth: '1990-01-15',
+  birthdate: '1990-01-15',
   email: 'test@example.com',
   firstName: 'John',
   lastName: 'Doe',
