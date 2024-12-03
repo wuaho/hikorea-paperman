@@ -1,9 +1,16 @@
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -13,6 +20,30 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const [month, setMonth] = React.useState<Date>(new Date());
+
+  // Generate array of years (e.g., from 1900 to current year + 10)
+  const years = Array.from(
+    { length: new Date().getFullYear() - 1900 + 11 },
+    (_, i) => 1900 + i,
+  );
+
+  // Generate array of month names
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -61,7 +92,51 @@ function Calendar({
       components={{
         IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRightIcon className="h-4 w-4" />,
+        Caption: ({ displayMonth }) => (
+          <div className="flex justify-center space-x-2">
+            <Select
+              value={displayMonth.getMonth().toString()}
+              onValueChange={(value) => {
+                const newMonth = new Date(displayMonth);
+                newMonth.setMonth(parseInt(value));
+                setMonth(newMonth);
+              }}
+            >
+              <SelectTrigger className="w-[110px]">
+                <SelectValue>{months[displayMonth.getMonth()]}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {months.map((month, index) => (
+                  <SelectItem key={month} value={index.toString()}>
+                    {month}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select
+              value={displayMonth.getFullYear().toString()}
+              onValueChange={(value) => {
+                const newMonth = new Date(displayMonth);
+                newMonth.setFullYear(parseInt(value));
+                setMonth(newMonth);
+              }}
+            >
+              <SelectTrigger className="w-[90px]">
+                <SelectValue>{displayMonth.getFullYear()}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((year) => (
+                  <SelectItem key={year} value={year.toString()}>
+                    {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ),
       }}
+      month={month}
+      onMonthChange={setMonth}
       {...props}
     />
   );
