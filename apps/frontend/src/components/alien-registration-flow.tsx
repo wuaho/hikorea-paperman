@@ -184,203 +184,208 @@ export function AlienRegistrationFlow() {
   const progress = step === -1 ? 0 : ((step + 1) / steps.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 relative">
-      <div className="flex items-center w-full pt-6 mb-8">
-        <h1 className="text-4xl font-bold text-[#013563]">
-          Hi Korea Assistant
-        </h1>
-      </div>
-      <Card className="w-full max-w-2xl shadow-lg relative overflow-visible min-w-[500px]">
-        <img
-          src={mascotImage}
-          alt="HiKorea Mascot"
-          className="absolute -top-40 -right-12 h-64 w-64 object-contain"
-        />
-        <CardHeader className="bg-[#013563] text-white">
-          <CardTitle>{step === -1 ? 'Welcome' : steps[step].title}</CardTitle>
-          <CardDescription className="text-gray-200">
-            {step === -1
-              ? 'What help do you need?'
-              : 'Please fill in the required information'}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="pt-6">
-          {step > -1 && <Progress value={progress} className="mb-6" />}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {step === -1 && (
-              <div className="space-y-4">
-                <Button
-                  className="w-full justify-start bg-[#013563] hover:bg-[#014583] transition-colors"
-                  onClick={() => setStep(0)}
-                >
-                  Foreign Resident Registration
-                </Button>
-                <Button
-                  className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
-                  disabled
-                >
-                  Extend visa
-                </Button>
-                <Button
-                  className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
-                  disabled
-                >
-                  Change status of visa
-                </Button>
-              </div>
-            )}
-            {step >= 0 && step < steps.length - 1 && (
-              <div className="space-y-4">
-                {steps[step].fields.map((field) => (
-                  <div key={field}>
-                    <div className="flex items-center">
-                      <Label htmlFor={field} className="mr-2">
-                        {fieldLabels[field]}
-                      </Label>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <HelpCircle className="h-4 w-4 text-gray-400" />
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{fieldHelpers[field]}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                    {field === 'nationality' ? (
-                      <Select
-                        onValueChange={(value) => updateField(field, value)}
-                      >
-                        <SelectTrigger id={field} className="w-full mt-1">
-                          <SelectValue placeholder="Select nationality" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {countries.map((country) => (
-                            <SelectItem key={country.code} value={country.code}>
-                              <span className="flex items-center">
-                                <span
-                                  className="mr-2"
-                                  role="img"
-                                  aria-label={`Flag of ${country.name}`}
-                                >
-                                  {country.flag}
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4 relative">
+        <div className="flex items-center w-full pt-6 mb-8">
+          <h1 className="text-4xl font-bold text-[#013563]">
+            Hi Korea Assistant
+          </h1>
+        </div>
+        <Card className="w-full max-w-2xl shadow-lg relative overflow-visible min-w-[500px]">
+          <img
+            src={mascotImage}
+            alt="HiKorea Mascot"
+            className="absolute -top-40 -right-12 h-64 w-64 object-contain"
+          />
+          <CardHeader className="bg-[#013563] text-white">
+            <CardTitle>{step === -1 ? 'Welcome' : steps[step].title}</CardTitle>
+            <CardDescription className="text-gray-200">
+              {step === -1
+                ? 'What help do you need?'
+                : 'Please fill in the required information'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            {step > -1 && <Progress value={progress} className="mb-6" />}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {step === -1 && (
+                <div className="space-y-4">
+                  <Button
+                    className="w-full justify-start bg-[#013563] hover:bg-[#014583] transition-colors"
+                    onClick={() => setStep(0)}
+                  >
+                    Foreign Resident Registration
+                  </Button>
+                  <Button
+                    className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
+                    disabled
+                  >
+                    Extend visa
+                  </Button>
+                  <Button
+                    className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
+                    disabled
+                  >
+                    Change status of visa
+                  </Button>
+                </div>
+              )}
+              {step >= 0 && step < steps.length - 1 && (
+                <div className="space-y-4">
+                  {steps[step].fields.map((field) => (
+                    <div key={field}>
+                      <div className="flex items-center">
+                        <Label htmlFor={field} className="mr-2">
+                          {fieldLabels[field]}
+                        </Label>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <HelpCircle className="h-4 w-4 text-gray-400" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{fieldHelpers[field]}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                      {field === 'nationality' ? (
+                        <Select
+                          onValueChange={(value) => updateField(field, value)}
+                        >
+                          <SelectTrigger id={field} className="w-full mt-1">
+                            <SelectValue placeholder="Select nationality" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {countries.map((country) => (
+                              <SelectItem
+                                key={country.code}
+                                value={country.code}
+                              >
+                                <span className="flex items-center">
+                                  <span
+                                    className="mr-2"
+                                    role="img"
+                                    aria-label={`Flag of ${country.name}`}
+                                  >
+                                    {country.flag}
+                                  </span>
+                                  {country.name}
                                 </span>
-                                {country.name}
-                              </span>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : field === 'sex' ? (
-                      <RadioGroup
-                        onValueChange={(value) => updateField(field, value)}
-                        className="flex space-x-4 mt-1"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="male" id="male" />
-                          <Label htmlFor="male">Male</Label>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ) : field === 'sex' ? (
+                        <RadioGroup
+                          onValueChange={(value) => updateField(field, value)}
+                          className="flex space-x-4 mt-1"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="male" id="male" />
+                            <Label htmlFor="male">Male</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="female" id="female" />
+                            <Label htmlFor="female">Female</Label>
+                          </div>
+                        </RadioGroup>
+                      ) : field === 'telephone' || field === 'mobile' ? (
+                        <div className="flex items-center mt-1">
+                          <span className="mr-2">+82</span>
+                          <Input
+                            id={field}
+                            type="tel"
+                            value={formData[field as keyof typeof formData]}
+                            onChange={(e) => updateField(field, e.target.value)}
+                            className="flex-grow"
+                          />
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="female" id="female" />
-                          <Label htmlFor="female">Female</Label>
-                        </div>
-                      </RadioGroup>
-                    ) : field === 'telephone' || field === 'mobile' ? (
-                      <div className="flex items-center mt-1">
-                        <span className="mr-2">+82</span>
+                      ) : (
                         <Input
                           id={field}
-                          type="tel"
+                          type={
+                            field === 'email'
+                              ? 'email'
+                              : field === 'birthday'
+                                ? 'date'
+                                : 'text'
+                          }
                           value={formData[field as keyof typeof formData]}
                           onChange={(e) => updateField(field, e.target.value)}
-                          className="flex-grow"
+                          className="w-full mt-1"
                         />
-                      </div>
-                    ) : (
-                      <Input
-                        id={field}
-                        type={
-                          field === 'email'
-                            ? 'email'
-                            : field === 'birthday'
-                              ? 'date'
-                              : 'text'
-                        }
-                        value={formData[field as keyof typeof formData]}
-                        onChange={(e) => updateField(field, e.target.value)}
-                        className="w-full mt-1"
-                      />
-                    )}
-                    {errors[field] && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors[field]}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+                      )}
+                      {errors[field] && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors[field]}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {step === 4 && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-[#013563]">
+                    Review Your Information
+                  </h3>
+                  {Object.entries(formData).map(([key, value]) => (
+                    <p
+                      key={key}
+                      className="flex justify-between border-b border-gray-200 py-2"
+                    >
+                      <strong className="text-[#013563]">
+                        {fieldLabels[key]}:
+                      </strong>
+                      <span>
+                        {key === 'nationality'
+                          ? `${countries.find((c) => c.code === value)?.flag} ${
+                              countries.find((c) => c.code === value)?.name
+                            }`
+                          : (key === 'telephone' || key === 'mobile'
+                              ? `+82 ${value}`
+                              : value) || 'Not provided'}
+                      </span>
+                    </p>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </CardContent>
+          <CardFooter className="flex justify-between bg-gray-50">
+            {step >= 0 && (
+              <Button
+                variant="outline"
+                onClick={() => setStep((prev) => prev - 1)}
+                className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+              >
+                Back
+              </Button>
             )}
-            {step === 4 && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-[#013563]">
-                  Review Your Information
-                </h3>
-                {Object.entries(formData).map(([key, value]) => (
-                  <p
-                    key={key}
-                    className="flex justify-between border-b border-gray-200 py-2"
-                  >
-                    <strong className="text-[#013563]">
-                      {fieldLabels[key]}:
-                    </strong>
-                    <span>
-                      {key === 'nationality'
-                        ? `${countries.find((c) => c.code === value)?.flag} ${
-                            countries.find((c) => c.code === value)?.name
-                          }`
-                        : (key === 'telephone' || key === 'mobile'
-                            ? `+82 ${value}`
-                            : value) || 'Not provided'}
-                    </span>
-                  </p>
-                ))}
-              </div>
-            )}
-          </motion.div>
-        </CardContent>
-        <CardFooter className="flex justify-between bg-gray-50">
-          {step >= 0 && (
-            <Button
-              variant="outline"
-              onClick={() => setStep((prev) => prev - 1)}
-              className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
-            >
-              Back
-            </Button>
-          )}
-          {step < steps.length - 1 ? (
-            <Button
-              onClick={() => setStep((prev) => prev + 1)}
-              disabled={!isStepValid(step)}
-              className="bg-[#013563] hover:bg-[#014583] transition-colors"
-            >
-              Next <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          ) : step === steps.length - 1 ? (
-            <Button
-              onClick={() => generatePDF(formData)}
-              className="bg-[#013563] hover:bg-[#014583] transition-colors"
-            >
-              Generate PDF <FileDown className="ml-2 h-4 w-4" />
-            </Button>
-          ) : null}
-        </CardFooter>
-      </Card>
+            {step < steps.length - 1 ? (
+              <Button
+                onClick={() => setStep((prev) => prev + 1)}
+                disabled={!isStepValid(step)}
+                className="bg-[#013563] hover:bg-[#014583] transition-colors"
+              >
+                Next <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : step === steps.length - 1 ? (
+              <Button
+                onClick={() => generatePDF(formData)}
+                className="bg-[#013563] hover:bg-[#014583] transition-colors"
+              >
+                Generate PDF <FileDown className="ml-2 h-4 w-4" />
+              </Button>
+            ) : null}
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }
