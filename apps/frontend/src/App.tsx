@@ -10,6 +10,7 @@ import {
   FormResult,
 } from './components/alien-registration-flow/index';
 import MainLayout from './components/main-layout';
+import { FlowSelector } from './components/flow-selector';
 
 createStore({
   data: {
@@ -36,7 +37,8 @@ function App() {
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
           <Routes>
             <Route element={<MainLayout />}>
-              <Route path="/" element={<Step1Form />} />
+              <Route path="/" element={<FlowSelector />} />
+              <Route path="/step1" element={<Step1Form />} />
               <Route path="/step2" element={<Step2Form />} />
               <Route path="/step3" element={<Step3Form />} />
               <Route path="/step4" element={<Step4Form />} />

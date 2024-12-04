@@ -246,7 +246,7 @@ export function Step2Form() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate('/');
+            navigate('/step1');
           }}
           className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
         >

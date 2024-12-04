@@ -56,13 +56,13 @@ export function Step1Form() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     //TODO default values to remove after testing
-    defaultValues: {
-      firstName: 'Juanjo',
-      lastName: 'Pérez',
-      email: 'juanjo@test.com',
-      birthdate: new Date('2000-01-01'),
-      sex: 'male',
-    },
+    // defaultValues: {
+    //   firstName: 'Juanjo',
+    //   lastName: 'Pérez',
+    //   email: 'juanjo@test.com',
+    //   birthdate: new Date('2000-01-01'),
+    //   sex: 'male',
+    // },
   });
   const { actions } = useStateMachine({ updateAction });
   const navigate = useNavigate();
@@ -249,7 +249,7 @@ export function Step1Form() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate('/step3');
+            navigate('/');
           }}
           className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
         >

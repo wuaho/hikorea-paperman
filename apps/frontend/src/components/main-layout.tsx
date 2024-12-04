@@ -1,15 +1,7 @@
 import { Outlet } from 'react-router';
 import Footer from './footer';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './ui/card';
+import { Card } from './ui/card';
 import mascotImage from '../assets/hikorea-mascot.png';
-import { Progress } from './ui/progress';
 
 function MainLayout() {
   return (
