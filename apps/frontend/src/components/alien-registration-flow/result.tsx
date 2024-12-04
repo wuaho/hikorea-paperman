@@ -78,7 +78,7 @@ export const FormResult = () => {
           ))}
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between bg-gray-50">
+      <CardFooter className="flex justify-between ">
         <Button
           variant="outline"
           onClick={() => {

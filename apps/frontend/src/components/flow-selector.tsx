@@ -51,12 +51,12 @@ export function FlowSelector() {
           </div>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-end bg-gray-50">
+      <CardFooter className="flex justify-end">
         <Button
           onClick={() => navigate('/step1')}
           className="bg-[#013563] hover:bg-[#014583] transition-colors"
         >
-          Next <ChevronRight className="ml-2 h-4 w-4" />
+          Start <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
       </CardFooter>
     </>

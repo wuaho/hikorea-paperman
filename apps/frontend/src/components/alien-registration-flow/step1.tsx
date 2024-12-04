@@ -245,7 +245,7 @@ export function Step1Form() {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-between bg-gray-50">
+      <CardFooter className="flex justify-between ">
         <Button
           variant="outline"
           onClick={() => {
