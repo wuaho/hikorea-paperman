@@ -20,6 +20,15 @@ import { Input } from '@/components/ui/input';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
+import { Progress } from '../ui/progress';
+import { ChevronRight } from 'lucide-react';
+import {
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '../ui/card';
 
 const formSchema = z.object({
   mobile: z.string().min(9).max(13),
@@ -59,88 +68,123 @@ export function Step3Form() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-3xl mx-auto py-10"
-      >
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-6">
-            <FormField
-              control={form.control}
-              name="mobile"
-              render={({ field }) => (
-                <FormItem className="flex flex-col items-start">
-                  <FormLabel>Phone number</FormLabel>
-                  <FormControl className="w-full">
-                    <PhoneInput
-                      placeholder="Placeholder"
-                      {...field}
-                      defaultCountry="TR"
-                    />
-                  </FormControl>
-                  <FormDescription>Enter your cell number.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+    <>
+      <CardHeader className="bg-[#013563] text-white">
+        <CardTitle> Additional Details</CardTitle>
+        <CardDescription className="text-gray-200">
+          Please fill in the required information
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pt-6">
+        <Progress value={75} className="mb-6" />
 
-          <div className="col-span-6">
+        <Form {...form}>
+          <form
+            id="step3"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 max-w-3xl mx-auto"
+          >
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-6">
+                <FormField
+                  control={form.control}
+                  name="mobile"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-start">
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl className="w-full">
+                        <PhoneInput
+                          placeholder="Placeholder"
+                          {...field}
+                          defaultCountry="TR"
+                        />
+                      </FormControl>
+                      <FormDescription>Enter your cell number.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="col-span-6">
+                <FormField
+                  control={form.control}
+                  name="telephone"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-start">
+                      <FormLabel>Telephone Number</FormLabel>
+                      <FormControl className="w-full">
+                        <PhoneInput
+                          placeholder=""
+                          {...field}
+                          defaultCountry="TR"
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Enter your telephone number.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
             <FormField
               control={form.control}
-              name="telephone"
+              name="addressKorea"
               render={({ field }) => (
-                <FormItem className="flex flex-col items-start">
-                  <FormLabel>Telephone Number</FormLabel>
-                  <FormControl className="w-full">
-                    <PhoneInput placeholder="" {...field} defaultCountry="TR" />
+                <FormItem>
+                  <FormLabel>Address in Korea</FormLabel>
+                  <FormControl>
+                    <Input placeholder="" type="text" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Enter your telephone number.
+                    Provide your current address in Korea
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
-        </div>
 
-        <FormField
-          control={form.control}
-          name="addressKorea"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address in Korea</FormLabel>
-              <FormControl>
-                <Input placeholder="" type="text" {...field} />
-              </FormControl>
-              <FormDescription>
-                Provide your current address in Korea
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="addressHomeCountry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address in Home Country</FormLabel>
+                  <FormControl>
+                    <Input placeholder="" type="text" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Enter your permanent address in home country.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </CardContent>
+      <CardFooter className="flex justify-between bg-gray-50">
+        <Button
+          variant="outline"
+          onClick={() => {
+            navigate('/step2');
+          }}
+          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+        >
+          Back
+        </Button>
 
-        <FormField
-          control={form.control}
-          name="addressHomeCountry"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address in Home Country</FormLabel>
-              <FormControl>
-                <Input placeholder="" type="text" {...field} />
-              </FormControl>
-              <FormDescription>
-                Enter your permanent address in home country.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Next</Button>
-      </form>
-    </Form>
+        <Button
+          form="step3"
+          type="submit"
+          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+        >
+          Next <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </>
   );
 }

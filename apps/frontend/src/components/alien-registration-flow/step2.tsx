@@ -24,10 +24,19 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronRight } from 'lucide-react';
 import { useStateMachine } from 'little-state-machine';
 import { useNavigate } from 'react-router';
 import updateAction from './update-action';
+
+import {
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '../ui/card';
+import { Progress } from '../ui/progress';
 
 const formSchema = z.object({
   nationality: z.tuple([z.string(), z.string().optional()]),
@@ -80,147 +89,178 @@ export function Step2Form() {
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-3xl mx-auto py-10"
-      >
-        <FormField
-          control={form.control}
-          name="nationality"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Select Nationality</FormLabel>
-              <FormControl>
-                <LocationSelector
-                  onCountryChange={(country) => {
-                    setCountryName(country?.name || '');
-                    form.setValue(field.name, [
-                      country?.name || '',
-                      stateName || '',
-                    ]);
-                  }}
-                  onStateChange={(state) => {
-                    setStateName(state?.name || '');
-                    form.setValue(field.name, [
-                      countryName || '',
-                      state?.name || '',
-                    ]);
-                  }}
+    <>
+      <CardHeader className="bg-[#013563] text-white">
+        <CardTitle> Additional Details</CardTitle>
+        <CardDescription className="text-gray-200">
+          Please fill in the required information
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pt-6">
+        <Progress value={50} className="mb-6" />
+
+        <Form {...form}>
+          <form
+            id="step2"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 max-w-3xl mx-auto"
+          >
+            <FormField
+              control={form.control}
+              name="nationality"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select Nationality</FormLabel>
+                  <FormControl>
+                    <LocationSelector
+                      onCountryChange={(country) => {
+                        setCountryName(country?.name || '');
+                        form.setValue(field.name, [
+                          country?.name || '',
+                          stateName || '',
+                        ]);
+                      }}
+                      onStateChange={(state) => {
+                        setStateName(state?.name || '');
+                        form.setValue(field.name, [
+                          countryName || '',
+                          state?.name || '',
+                        ]);
+                      }}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="passportNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Passport Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="" type="text" {...field} />
+                  </FormControl>
+                  <FormDescription>Enter your passport number.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-6">
+                <FormField
+                  control={form.control}
+                  name="passportIssueDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Passport Issue Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-[240px] pl-3 text-left font-normal',
+                                !field.value && 'text-muted-foreground',
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormDescription>
+                        Enter the date when your passport was issued.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </FormControl>
+              </div>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <div className="col-span-6">
+                <FormField
+                  control={form.control}
+                  name="passportExpiryDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Passport Expiry Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant={'outline'}
+                              className={cn(
+                                'w-[240px] pl-3 text-left font-normal',
+                                !field.value && 'text-muted-foreground',
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, 'PPP')
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormDescription>
+                        Enter the date when your passport was will be expired.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+      <CardFooter className="flex justify-between bg-gray-50">
+        <Button
+          variant="outline"
+          onClick={() => {
+            navigate('/');
+          }}
+          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+        >
+          Back
+        </Button>
 
-        <FormField
-          control={form.control}
-          name="passportNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Passport Number</FormLabel>
-              <FormControl>
-                <Input placeholder="" type="text" {...field} />
-              </FormControl>
-              <FormDescription>Enter your passport number.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-6">
-            <FormField
-              control={form.control}
-              name="passportIssueDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Passport Issue Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, 'PPP')
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormDescription>
-                    Enter the date when your passport was issued.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <div className="col-span-6">
-            <FormField
-              control={form.control}
-              name="passportExpiryDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Passport Expiry Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, 'PPP')
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormDescription>
-                    Enter the date when your passport was will be expired.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
-        <Button type="submit">Next</Button>
-      </form>
-    </Form>
+        <Button
+          form="step2"
+          type="submit"
+          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+        >
+          Next <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </>
   );
 }
