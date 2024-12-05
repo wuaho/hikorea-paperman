@@ -57,10 +57,10 @@ export function Step2Form() {
       // TODO Fix nationality when coming back from step 3
       nationality: data.nationality ? [data.nationality, undefined] : undefined,
       passportNumber: data.passportNumber || '',
-      passportIssueDate: data.birthdate
+      passportIssueDate: data.passportIssueDate
         ? parseISO(data.passportIssueDate)
         : undefined,
-      passportExpiryDate: data.birthdate
+      passportExpiryDate: data.passportExpiryDate
         ? parseISO(data.passportExpiryDate)
         : undefined,
     },
