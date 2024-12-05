@@ -80,9 +80,6 @@ export function Step4Form() {
                     canvasRef={canvasRef}
                     onSignatureChange={field.onChange}
                   />
-                  <FormDescription>
-                    Please provide your signature above
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
