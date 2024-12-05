@@ -38,18 +38,19 @@ const formSchema = z.object({
 });
 
 export function Step3Form() {
+  const { state, actions } = useStateMachine({ updateAction });
+  const data = state.data;
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    //TODO default values to remove after testing
     defaultValues: {
-      mobile: '+821011112222',
-      telephone: '+821022223333',
-      addressKorea: '456 Gangnam-daero, Seoul, South Korea',
-      addressHomeCountry: 'Calle Pureza Numero 1,Sevilla, Spain',
+      mobile: data.mobile || '',
+      telephone: data.telephone || '',
+      addressKorea: data.addressKorea || '',
+      addressHomeCountry: data.addressHomeCountry || '',
     },
   });
-  const { actions } = useStateMachine({ updateAction });
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -99,7 +100,6 @@ export function Step3Form() {
                           defaultCountry="TR"
                         />
                       </FormControl>
-                      <FormDescription>Enter your cell number.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -120,9 +120,6 @@ export function Step3Form() {
                           defaultCountry="TR"
                         />
                       </FormControl>
-                      <FormDescription>
-                        Enter your telephone number.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -139,9 +136,6 @@ export function Step3Form() {
                   <FormControl>
                     <Input placeholder="" type="text" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Provide your current address in Korea
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -156,9 +150,6 @@ export function Step3Form() {
                   <FormControl>
                     <Input placeholder="" type="text" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Enter your permanent address in home country.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
