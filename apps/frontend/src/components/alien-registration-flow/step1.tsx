@@ -13,7 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { format, parseISO } from 'date-fns';
 import {
   Popover,
@@ -40,6 +39,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Progress } from '../ui/progress';
+import { FormInput } from '../ui/form-input';
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -69,6 +69,7 @@ export function Step1Form() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      console.log(values);
       const payloadAllStrings = {
         ...values,
         birthdate: formatDate(values.birthdate),
@@ -104,8 +105,8 @@ export function Step1Form() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 max-w-3xl mx-auto "
           >
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-6">
+            <div className="grid grid-cols-12 gap-4 ">
+              <div className="col-span-6 ">
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -113,7 +114,7 @@ export function Step1Form() {
                     <FormItem>
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
-                        <Input type="text" {...field} />
+                        <FormInput type="text" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -130,7 +131,7 @@ export function Step1Form() {
                     <FormItem>
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
-                        <Input type="text" {...field} />
+                        <FormInput type="text" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -146,7 +147,7 @@ export function Step1Form() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} />
+                    <FormInput type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -206,7 +207,7 @@ export function Step1Form() {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <FormControl>
+                        <FormControl className="hover:bg-zinc-100 hover:text-zinc-900">
                           <SelectTrigger>
                             <SelectValue placeholder="Select your sex" />
                           </SelectTrigger>

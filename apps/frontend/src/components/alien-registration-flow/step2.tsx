@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import LocationSelector from '@/components/ui/location-input';
-import { Input } from '@/components/ui/input';
 import { format, parseISO } from 'date-fns';
 import {
   Popover,
@@ -36,6 +35,7 @@ import {
   CardFooter,
 } from '../ui/card';
 import { Progress } from '../ui/progress';
+import { FormInput } from '../ui/form-input';
 
 const formSchema = z.object({
   nationality: z.tuple([z.string(), z.string().optional()]),
@@ -146,7 +146,7 @@ export function Step2Form() {
                 <FormItem>
                   <FormLabel>Passport Number</FormLabel>
                   <FormControl>
-                    <Input placeholder="" type="text" {...field} />
+                    <FormInput type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

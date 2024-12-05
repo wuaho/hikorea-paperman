@@ -9,14 +9,12 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { PhoneInput } from '@/components/ui/phone-input';
-import { Input } from '@/components/ui/input';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
@@ -29,6 +27,7 @@ import {
   CardContent,
   CardFooter,
 } from '../ui/card';
+import { FormInput } from '../ui/form-input';
 
 const formSchema = z.object({
   mobile: z.string().min(9).max(13),
@@ -94,11 +93,7 @@ export function Step3Form() {
                     <FormItem className="flex flex-col items-start">
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl className="w-full">
-                        <PhoneInput
-                          placeholder="Placeholder"
-                          {...field}
-                          defaultCountry="TR"
-                        />
+                        <PhoneInput {...field} defaultCountry="KR" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -114,11 +109,7 @@ export function Step3Form() {
                     <FormItem className="flex flex-col items-start">
                       <FormLabel>Telephone Number</FormLabel>
                       <FormControl className="w-full">
-                        <PhoneInput
-                          placeholder=""
-                          {...field}
-                          defaultCountry="TR"
-                        />
+                        <PhoneInput {...field} defaultCountry="KR" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -134,7 +125,7 @@ export function Step3Form() {
                 <FormItem>
                   <FormLabel>Address in Korea</FormLabel>
                   <FormControl>
-                    <Input placeholder="" type="text" {...field} />
+                    <FormInput type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +139,7 @@ export function Step3Form() {
                 <FormItem>
                   <FormLabel>Address in Home Country</FormLabel>
                   <FormControl>
-                    <Input placeholder="" type="text" {...field} />
+                    <FormInput type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
