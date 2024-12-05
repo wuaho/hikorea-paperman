@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,7 @@ import {
 } from '@/components/ui/form';
 import LocationSelector from '@/components/ui/location-input';
 import { Input } from '@/components/ui/input';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import {
   Popover,
   PopoverContent,
@@ -48,19 +47,24 @@ const formSchema = z.object({
 export function Step2Form() {
   const [countryName, setCountryName] = useState<string>('');
   const [stateName, setStateName] = useState<string>('');
+  const { state, actions } = useStateMachine({ updateAction });
+  const data = state.data;
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    //TODO default values to remove after testing
     defaultValues: {
-      nationality: ['Spain', 'Sevilla'],
-      passportNumber: '123',
-      passportIssueDate: new Date(),
-      passportExpiryDate: new Date(),
+      // TODO Fix nationality when coming back from step 3
+      nationality: data.nationality ? [data.nationality, undefined] : undefined,
+      passportNumber: data.passportNumber || '',
+      passportIssueDate: data.birthdate
+        ? parseISO(data.passportIssueDate)
+        : undefined,
+      passportExpiryDate: data.birthdate
+        ? parseISO(data.passportExpiryDate)
+        : undefined,
     },
   });
-  const { actions } = useStateMachine({ updateAction });
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -110,7 +114,7 @@ export function Step2Form() {
               name="nationality"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Select Nationality</FormLabel>
+                  <FormLabel>Nationality</FormLabel>
                   <FormControl>
                     <LocationSelector
                       onCountryChange={(country) => {
@@ -144,7 +148,6 @@ export function Step2Form() {
                   <FormControl>
                     <Input placeholder="" type="text" {...field} />
                   </FormControl>
-                  <FormDescription>Enter your passport number.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -186,9 +189,6 @@ export function Step2Form() {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormDescription>
-                        Enter the date when your passport was issued.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -201,7 +201,7 @@ export function Step2Form() {
                   name="passportExpiryDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Passport Expiry Date</FormLabel>
+                      <FormLabel>Passport Expiration Date</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -230,9 +230,6 @@ export function Step2Form() {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormDescription>
-                        Enter the date when your passport was will be expired.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
