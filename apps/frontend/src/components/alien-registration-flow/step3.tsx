@@ -1,10 +1,8 @@
 'use client';
-import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,7 +16,6 @@ import { PhoneInput } from '@/components/ui/phone-input';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
-import { Progress } from '../ui/progress';
 import { ChevronRight } from 'lucide-react';
 import {
   CardHeader,
@@ -28,6 +25,7 @@ import {
   CardFooter,
 } from '../ui/card';
 import { FormInput } from '../ui/form-input';
+import { DelayProgress } from '../ui/delay-progress';
 
 const formSchema = z.object({
   mobile: z.string().min(9).max(13),
@@ -76,8 +74,12 @@ export function Step3Form() {
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
-        <Progress value={75} className="mb-6" />
-
+        <DelayProgress
+          className="mb-6"
+          initialValue={40}
+          targetValue={60}
+          delay={0}
+        />
         <Form {...form}>
           <form
             id="step3"

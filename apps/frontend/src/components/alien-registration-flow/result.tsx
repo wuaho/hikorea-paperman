@@ -4,7 +4,6 @@ import { FileDown } from 'lucide-react';
 import axios from 'axios';
 import updateAction from './update-action';
 import { ForeignerRegistrationFormDto } from '@shared/dtos/foreigner-registration-form.dto';
-import { Progress } from '../ui/progress';
 import {
   CardHeader,
   CardTitle,
@@ -13,6 +12,7 @@ import {
   CardFooter,
 } from '../ui/card';
 import { useNavigate } from 'react-router';
+import { DelayProgress } from '../ui/delay-progress';
 
 const fieldLabels: { [key: string]: string } = {
   firstName: 'First Name',
@@ -64,8 +64,12 @@ export const FormResult = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
-        <Progress value={100} className="mb-6" />
-
+        <DelayProgress
+          className="mb-6"
+          initialValue={80}
+          targetValue={100}
+          delay={0}
+        />
         <div className="space-y-4">
           {Object.entries(state.data).map(([key, value]) => (
             <p

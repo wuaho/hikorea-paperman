@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   Form,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +16,6 @@ import {
 } from '@/components/ui/form';
 import SignatureInput from '@/components/ui/signature-input';
 import { useNavigate } from 'react-router';
-import { Progress } from '../ui/progress';
 import { ChevronRight } from 'lucide-react';
 import {
   CardHeader,
@@ -26,6 +24,7 @@ import {
   CardContent,
   CardFooter,
 } from '../ui/card';
+import { DelayProgress } from '../ui/delay-progress';
 
 const FormSchema = z.object({
   signature: z.string().min(1, 'Please sign the form'),
@@ -60,8 +59,12 @@ export function Step4Form() {
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
-        <Progress value={95} className="mb-6" />
-
+        <DelayProgress
+          className="mb-6"
+          initialValue={60}
+          targetValue={80}
+          delay={0}
+        />
         <Form {...form}>
           <form
             id="step4"

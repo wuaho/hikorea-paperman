@@ -38,8 +38,9 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { Progress } from '../ui/progress';
 import { FormInput } from '../ui/form-input';
+import React from 'react';
+import { DelayProgress } from '../ui/delay-progress';
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -97,8 +98,12 @@ export function Step1Form() {
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
-        <Progress value={25} className="mb-6" />
-
+        <DelayProgress
+          className="mb-6"
+          initialValue={0}
+          targetValue={20}
+          delay={0}
+        />
         <Form {...form}>
           <form
             id="step1"
