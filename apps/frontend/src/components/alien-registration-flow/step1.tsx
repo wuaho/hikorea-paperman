@@ -8,14 +8,13 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import {
   Popover,
   PopoverContent,
@@ -53,24 +52,23 @@ const formSchema = z.object({
 });
 
 export function Step1Form() {
+  const { state, actions } = useStateMachine({ updateAction });
+  const data = state.data;
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    //TODO default values to remove after testing
-    // defaultValues: {
-    //   firstName: 'Juanjo',
-    //   lastName: 'Pérez',
-    //   email: 'juanjo@test.com',
-    //   birthdate: new Date('2000-01-01'),
-    //   sex: 'male',
-    // },
+    defaultValues: {
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      email: data.email || '',
+      birthdate: data.birthdate ? parseISO(data.birthdate) : undefined,
+      sex: data.sex || '',
+    },
   });
-  const { actions } = useStateMachine({ updateAction });
-  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log(values);
-
       const payloadAllStrings = {
         ...values,
         birthdate: formatDate(values.birthdate),
@@ -115,11 +113,9 @@ export function Step1Form() {
                     <FormItem>
                       <FormLabel>First Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John" type="text" {...field} />
+                        <Input type="text" {...field} />
                       </FormControl>
-                      <FormDescription>
-                        Enter your given name as it appears on your passport.
-                      </FormDescription>
+
                       <FormMessage />
                     </FormItem>
                   )}
@@ -134,11 +130,8 @@ export function Step1Form() {
                     <FormItem>
                       <FormLabel>Last Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Keen" type="text" {...field} />
+                        <Input type="text" {...field} />
                       </FormControl>
-                      <FormDescription>
-                        Enter your family name as it appears on passport.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -153,15 +146,8 @@ export function Step1Form() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="johnkeen@mail.com"
-                      type="email"
-                      {...field}
-                    />
+                    <Input type="email" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Provide a valid email address for communication.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -173,8 +159,8 @@ export function Step1Form() {
                   control={form.control}
                   name="birthdate"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Date of birth</FormLabel>
+                    <FormItem>
+                      <FormLabel>Date of Birth</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -203,9 +189,6 @@ export function Step1Form() {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormDescription>
-                        Your date of birth is used to calculate your age.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -233,9 +216,7 @@ export function Step1Form() {
                           <SelectItem value="female">Female</SelectItem>
                         </SelectContent>
                       </Select>
-                      <FormDescription>
-                        Select your sex as it appears on official documents.
-                      </FormDescription>
+
                       <FormMessage />
                     </FormItem>
                   )}
