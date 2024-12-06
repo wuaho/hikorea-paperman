@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,7 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import LocationSelector from '@/components/ui/location-input';
 import { format, parseISO } from 'date-fns';
 import {
   Popover,
@@ -36,17 +34,16 @@ import {
 } from '../ui/card';
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
+import CountrySelector from '../ui/country-selector';
 
 const formSchema = z.object({
-  nationality: z.tuple([z.string(), z.string().optional()]),
+  nationality: z.string(),
   passportNumber: z.string().min(0).max(9),
   passportIssueDate: z.coerce.date(),
   passportExpiryDate: z.coerce.date(),
 });
 
 export function Step2Form() {
-  const [countryName, setCountryName] = useState<string>('');
-  const [stateName, setStateName] = useState<string>('');
   const { state, actions } = useStateMachine({ updateAction });
   const data = state.data;
   const navigate = useNavigate();
@@ -54,8 +51,7 @@ export function Step2Form() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      // TODO Fix nationality when coming back from step 3
-      nationality: data.nationality ? [data.nationality, undefined] : undefined,
+      nationality: data.nationality || '',
       passportNumber: data.passportNumber || '',
       passportIssueDate: data.passportIssueDate
         ? parseISO(data.passportIssueDate)
@@ -72,7 +68,7 @@ export function Step2Form() {
 
       const payload = {
         ...values,
-        nationality: values.nationality[0],
+        nationality: values.nationality,
         passportIssueDate: formatDate(values.passportIssueDate),
         passportExpiryDate: formatDate(values.passportExpiryDate),
       };
@@ -120,24 +116,13 @@ export function Step2Form() {
                 <FormItem>
                   <FormLabel>Nationality</FormLabel>
                   <FormControl>
-                    <LocationSelector
+                    <CountrySelector
+                      initialCountryName={field.value}
                       onCountryChange={(country) => {
-                        setCountryName(country?.name || '');
-                        form.setValue(field.name, [
-                          country?.name || '',
-                          stateName || '',
-                        ]);
-                      }}
-                      onStateChange={(state) => {
-                        setStateName(state?.name || '');
-                        form.setValue(field.name, [
-                          countryName || '',
-                          state?.name || '',
-                        ]);
+                        form.setValue(field.name, country?.name || '');
                       }}
                     />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
