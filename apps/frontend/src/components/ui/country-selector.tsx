@@ -28,19 +28,26 @@ interface CountryProps {
 interface CountrySelectorProps {
   disabled?: boolean;
   onCountryChange?: (country: CountryProps | null) => void;
+  initialCountryName?: string;
 }
 
 const CountrySelector = ({
   disabled,
   onCountryChange,
+  initialCountryName,
 }: CountrySelectorProps) => {
-  const [selectedCountry, setSelectedCountry] = useState<CountryProps | null>(
-    null,
-  );
-  const [openCountryDropdown, setOpenCountryDropdown] = useState(false);
-
   // Cast imported JSON data to their respective types
   const countriesData = countries as CountryProps[];
+
+  const initialCountry = initialCountryName
+    ? countriesData.find((country) => country.name === initialCountryName) ||
+      null
+    : null;
+
+  const [selectedCountry, setSelectedCountry] = useState<CountryProps | null>(
+    initialCountry,
+  );
+  const [openCountryDropdown, setOpenCountryDropdown] = useState(false);
 
   const handleCountrySelect = (country: CountryProps | null) => {
     setSelectedCountry(country);
