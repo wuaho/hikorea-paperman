@@ -214,7 +214,7 @@ export function Step1Form() {
                       >
                         <FormControl className="hover:bg-zinc-100 hover:text-zinc-900">
                           <SelectTrigger>
-                            <SelectValue placeholder="Select your sex" />
+                            <SelectValue placeholder="Select one" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
