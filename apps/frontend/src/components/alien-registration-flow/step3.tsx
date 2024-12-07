@@ -12,7 +12,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { PhoneInput } from '@/components/ui/phone-input';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
@@ -26,6 +25,7 @@ import {
 } from '../ui/card';
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
+import { KoreanPhoneInput } from '../ui/korean-phone-input';
 
 const formSchema = z.object({
   mobile: z.string().min(9).max(13),
@@ -95,7 +95,7 @@ export function Step3Form() {
                     <FormItem className="flex flex-col items-start">
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl className="w-full">
-                        <PhoneInput {...field} defaultCountry="KR" />
+                        <KoreanPhoneInput {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -111,7 +111,7 @@ export function Step3Form() {
                     <FormItem className="flex flex-col items-start">
                       <FormLabel>Telephone Number</FormLabel>
                       <FormControl className="w-full">
-                        <PhoneInput {...field} defaultCountry="KR" />
+                        <KoreanPhoneInput {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
