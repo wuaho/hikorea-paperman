@@ -71,6 +71,11 @@ export class DocumentsService {
       pdfForm.getCheckBox('sex-male').check();
     if (foreignRegistrationForm.sex.toLowerCase() === FEMALE)
       pdfForm.getCheckBox('sex-female').check();
+
+    pdfForm.getCheckBox('foreign-resident-registration').check();
+
+    // TODO this gives some problems
+    // pdfForm.flatten();
   }
 
   private async loadApplicationFormPdf(): Promise<PDFDocument> {
