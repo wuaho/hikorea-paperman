@@ -4,21 +4,23 @@ import 'little-state-machine';
 // care about the API calls to the bakend when saving states or not
 
 declare module 'little-state-machine' {
+  interface GlobalStateData {
+    addressHomeCountry: string;
+    addressKorea: string;
+    birthdate: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    mobile: string;
+    nationality: string;
+    passportExpiryDate: string;
+    passportIssueDate: string;
+    passportNumber: string;
+    sex: string;
+    telephone: string;
+  }
+
   interface GlobalState {
-    data: {
-      addressHomeCountry: string;
-      addressKorea: string;
-      birthdate: string;
-      email: string;
-      firstName: string;
-      lastName: string;
-      mobile: string;
-      nationality: string;
-      passportExpiryDate: string;
-      passportIssueDate: string;
-      passportNumber: string;
-      sex: string;
-      telephone: string;
-    };
+    data: GlobalStateData;
   }
 }
