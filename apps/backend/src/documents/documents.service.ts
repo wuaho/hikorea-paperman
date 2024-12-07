@@ -30,9 +30,12 @@ export const STRING_FIELDS_MAPPING = {
 export class DocumentsService {
   async registerForeignResident(
     foreignerRegistrationForm: ForeignerRegistrationFormDto,
+    signature: Express.Multer.File,
   ): Promise<StreamableFile> {
     const applicationFormPdf = await this.loadApplicationFormPdf();
     const pdfForm = applicationFormPdf.getForm();
+
+    this.addSign(signature, applicationFormPdf);
 
     this.fillFormFields(foreignerRegistrationForm, pdfForm);
 
@@ -41,6 +44,28 @@ export class DocumentsService {
     return new StreamableFile(pdfBytes, {
       disposition: 'attachment; filename="filled-form.pdf"',
       type: 'application/pdf.',
+    });
+  }
+
+  private async addSign(signature: Express.Multer.File, pdf: PDFDocument) {
+    const pngImage = await pdf.embedPng(signature.buffer);
+
+    const firstPage = pdf.getPages()[0];
+    console.log(firstPage.getWidth()); // 595
+    console.log(firstPage.getHeight()); // 841
+
+    //TODO: ponerlas bien para que salga la firma de manera escala que tenga sentido
+    //coordenadas: x:
+    // height: 10,
+    // width: 130,
+    // x: 437,
+    // y: 255,
+
+    firstPage.drawImage(pngImage, {
+      height: 10,
+      width: 130,
+      x: 437,
+      y: 255,
     });
   }
 
