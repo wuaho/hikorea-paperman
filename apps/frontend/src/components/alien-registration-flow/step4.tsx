@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form';
 import SignatureInput from '@/components/ui/signature-input';
 import { useNavigate } from 'react-router';
-import { ChevronRight } from 'lucide-react';
+import { FileDown } from 'lucide-react';
 import {
   CardHeader,
   CardTitle,
@@ -25,6 +25,11 @@ import {
   CardFooter,
 } from '../ui/card';
 import { DelayProgress } from '../ui/delay-progress';
+import { useStateMachine } from 'little-state-machine';
+import updateAction from './update-action';
+import { ForeignerRegistrationFormDto } from '@shared/dtos/foreigner-registration-form.dto';
+import axios from 'axios';
+import { signatureURLtoBlob } from '@/lib/utils';
 
 const FormSchema = z.object({
   signature: z.string().min(1, 'Please sign the form'),
@@ -33,21 +38,53 @@ const FormSchema = z.object({
 type SignatureFormData = z.infer<typeof FormSchema>;
 
 export function Step4Form() {
+  const { state } = useStateMachine({ updateAction });
+  const navigate = useNavigate();
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const form = useForm<SignatureFormData>({
     resolver: zodResolver(FormSchema),
   });
-  const navigate = useNavigate();
 
   const onSubmit = (data: SignatureFormData) => {
-    // console.log('Signature Data URL:', data.signature)
-    navigate('/result');
+    const signatureBlob = signatureURLtoBlob(data.signature);
+    generatePDF(state.data, signatureBlob);
 
     toast(
       <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
         <code className="text-white">{JSON.stringify(data, null, 2)}</code>
       </pre>,
     );
+  };
+
+  const generatePDF = async (
+    form: ForeignerRegistrationFormDto,
+    signature: Blob,
+  ) => {
+    try {
+      const formData = new FormData();
+
+      formData.append('signature', signature);
+      Object.entries(form).forEach(([key, value]) => {
+        formData.append(key, value as string);
+      });
+
+      const response = await axios.post(
+        '/api/documents/registerForeignResident',
+        formData,
+        {
+          responseType: 'blob',
+        },
+      );
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'generated_document.pdf';
+      link.click();
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
   };
 
   return (
@@ -61,8 +98,8 @@ export function Step4Form() {
       <CardContent className="pt-6">
         <DelayProgress
           className="mb-6"
-          initialValue={60}
-          targetValue={80}
+          initialValue={80}
+          targetValue={100}
           delay={0}
         />
         <Form {...form}>
@@ -94,7 +131,7 @@ export function Step4Form() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate('/step3');
+            navigate('/result');
           }}
           className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
         >
@@ -106,7 +143,7 @@ export function Step4Form() {
           type="submit"
           className="bg-[#013563] hover:bg-[#014583] transition-colors"
         >
-          Next <ChevronRight className="ml-2 h-4 w-4" />
+          Generate PDF <FileDown className="ml-2 h-4 w-4" />
         </Button>
       </CardFooter>
     </>

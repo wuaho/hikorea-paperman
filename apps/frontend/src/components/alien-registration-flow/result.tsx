@@ -1,9 +1,7 @@
 import { GlobalStateData, useStateMachine } from 'little-state-machine';
 import { Button } from '../ui/button';
-import { FileDown } from 'lucide-react';
-import axios from 'axios';
+import { ChevronRight } from 'lucide-react';
 import updateAction from './update-action';
-import { ForeignerRegistrationFormDto } from '@shared/dtos/foreigner-registration-form.dto';
 import {
   CardHeader,
   CardTitle,
@@ -34,27 +32,6 @@ export const FormResult = () => {
   const { state } = useStateMachine({ updateAction });
   const navigate = useNavigate();
 
-  const generatePDF = async (formData: ForeignerRegistrationFormDto) => {
-    try {
-      console.log(formData);
-      const response = await axios.post(
-        '/api/documents/registerForeignResident',
-        formData,
-        {
-          responseType: 'blob',
-        },
-      );
-
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'generated_document.pdf';
-      link.click();
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
-
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
@@ -66,8 +43,8 @@ export const FormResult = () => {
       <CardContent className="pt-6">
         <DelayProgress
           className="mb-6"
-          initialValue={80}
-          targetValue={100}
+          initialValue={60}
+          targetValue={80}
           delay={0}
         />
         <div className="space-y-4">
@@ -89,7 +66,7 @@ export const FormResult = () => {
         <Button
           variant="outline"
           onClick={() => {
-            navigate('/step4');
+            navigate('/step3');
           }}
           className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
         >
@@ -97,10 +74,12 @@ export const FormResult = () => {
         </Button>
 
         <Button
-          onClick={() => generatePDF(state.data)}
+          onClick={() => {
+            navigate('/step4');
+          }}
           className="bg-[#013563] hover:bg-[#014583] transition-colors"
         >
-          Generate PDF <FileDown className="ml-2 h-4 w-4" />
+          Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
       </CardFooter>
     </>
