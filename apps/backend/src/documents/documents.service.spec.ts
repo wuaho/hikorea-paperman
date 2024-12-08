@@ -5,6 +5,9 @@ import { PDFCheckBox, PDFDocument, PDFForm, PDFTextField } from 'pdf-lib';
 
 import { DocumentsService, STRING_FIELDS_MAPPING } from './documents.service';
 
+const todayDate = '2022-02-02';
+jest.useFakeTimers().setSystemTime(new Date(todayDate));
+
 const foreignerRegistrationFields = {
   addressHomeCountry: '123 Home St',
   addressKorea: '456 Korea Rd',
@@ -20,6 +23,12 @@ const foreignerRegistrationFields = {
   sex: 'Male',
   telephone: '02-9876-5432',
 };
+const signature = {
+  buffer: Buffer.from('test'),
+  mimetype: 'image/png',
+  originalname: 'test-signature',
+  path: 'sample.url',
+} as Express.Multer.File;
 
 describe('DocumentsService', () => {
   let documentsService: DocumentsService;
@@ -33,46 +42,58 @@ describe('DocumentsService', () => {
   });
 
   describe('registerForeignResident', () => {
+    let textField: jest.Mocked<PDFTextField>;
+    let checkBoxField: jest.Mocked<PDFCheckBox>;
+    let pdfForm: jest.Mocked<PDFForm>;
+
+    beforeEach(async () => {
+      const pdfImage = {
+        height: 200,
+        scaleToFit: jest.fn().mockReturnValue({ height: 13, width: 184 }),
+        width: 300,
+      };
+      const pdfPage = {
+        drawImage: jest.fn(),
+      };
+
+      textField = {
+        setText: jest.fn(),
+      } as any;
+      checkBoxField = {
+        check: jest.fn(),
+      } as any;
+      pdfForm = {
+        getCheckBox: jest.fn(() => checkBoxField),
+        getTextField: jest.fn(() => textField),
+      } as any;
+
+      jest.spyOn(PDFDocument, 'load').mockResolvedValue({
+        embedPng: jest.fn().mockResolvedValue(pdfImage),
+        getForm: jest.fn(() => pdfForm),
+        getPages: jest.fn().mockReturnValue([pdfPage]),
+        save: jest.fn().mockResolvedValue(Buffer.from('')),
+      } as any);
+    });
     it('returns a StreamableFile', async () => {
       const result = await documentsService.registerForeignResident(
         foreignerRegistrationFields,
+        signature,
       );
 
       expect(result).toBeInstanceOf(StreamableFile);
     });
     describe('fillFormFields', () => {
-      let textField: jest.Mocked<PDFTextField>;
-      let checkBoxField: jest.Mocked<PDFCheckBox>;
-      let pdfForm: jest.Mocked<PDFForm>;
-
-      beforeEach(async () => {
-        textField = {
-          setText: jest.fn(),
-        } as any;
-
-        checkBoxField = {
-          check: jest.fn(),
-        } as any;
-
-        pdfForm = {
-          getCheckBox: jest.fn(() => checkBoxField),
-          getTextField: jest.fn(() => textField),
-        } as any;
-
-        jest.spyOn(PDFDocument, 'load').mockResolvedValue({
-          getForm: jest.fn(() => pdfForm),
-          save: jest.fn().mockResolvedValue(Buffer.from('')),
-        } as any);
-      });
       it('should populate text fields and checkboxes correctly', async () => {
         const fieldsToFill: { [key: string]: string } = {
           birthDay: '15',
           birthMonth: '1',
           birthYear: '1990',
+          dateOfApplication: '2022-02-02',
           ...foreignerRegistrationFields,
         };
         await documentsService.registerForeignResident(
           foreignerRegistrationFields,
+          signature,
         );
 
         for (const [key, pdfFieldName] of Object.entries(
