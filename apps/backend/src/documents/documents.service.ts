@@ -1,7 +1,8 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
+import { format } from 'date-fns';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { PDFDocument, PDFForm, rgb } from 'pdf-lib';
+import { PDFDocument, PDFForm } from 'pdf-lib';
 
 import { ForeignerRegistrationFormDto } from './dtos/foreigner-registration-form.dto';
 
@@ -15,6 +16,7 @@ export const STRING_FIELDS_MAPPING = {
   birthDay: 'birth-day',
   birthMonth: 'birth-month',
   birthYear: 'birth-year',
+  dateOfApplication: 'date-of-application',
   email: 'email',
   firstName: 'first-name',
   lastName: 'last-name',
@@ -53,13 +55,13 @@ export class DocumentsService {
     const scaledImage = pngImage.scaleToFit(184, 13);
     // const scaledImage = pngImage.scale(0.03);
 
-    console.log('Tamaño de la imagen');
-    console.log(scaledImage.width);
-    console.log(scaledImage.height);
+    // console.log('Tamaño de la imagen');
+    // console.log(scaledImage.width);
+    // console.log(scaledImage.height);
 
     const firstPage = pdf.getPages()[0];
-    console.log(firstPage.getWidth()); // 595
-    console.log(firstPage.getHeight()); // 841
+    // console.log(firstPage.getWidth()); // 595
+    // console.log(firstPage.getHeight()); // 841
 
     //TODO: ponerlas bien para que salga la firma de manera escala que tenga sentido
     //coordenadas: x:
@@ -85,12 +87,14 @@ export class DocumentsService {
       month: birthMonth,
       year: birthYear,
     } = this.parseDate(foreignRegistrationForm.birthdate);
+    const dateOfApplication = this.formatDate(new Date());
 
     const extendedForeignRegistrationForm = {
       ...foreignRegistrationForm,
       birthDay,
       birthMonth,
       birthYear,
+      dateOfApplication,
     };
 
     for (const [key, pdfFieldName] of Object.entries(STRING_FIELDS_MAPPING)) {
@@ -108,6 +112,10 @@ export class DocumentsService {
 
     // TODO this gives some problems
     // pdfForm.flatten();
+  }
+
+  private formatDate(date: Date): string {
+    return format(date, 'yyyy-MM-dd');
   }
 
   private async loadApplicationFormPdf(): Promise<PDFDocument> {
