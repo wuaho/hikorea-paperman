@@ -1,7 +1,7 @@
 import { Injectable, StreamableFile } from '@nestjs/common';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { PDFDocument, PDFForm } from 'pdf-lib';
+import { PDFDocument, PDFForm, rgb } from 'pdf-lib';
 
 import { ForeignerRegistrationFormDto } from './dtos/foreigner-registration-form.dto';
 
@@ -35,9 +35,9 @@ export class DocumentsService {
     const applicationFormPdf = await this.loadApplicationFormPdf();
     const pdfForm = applicationFormPdf.getForm();
 
-    this.addSign(signature, applicationFormPdf);
-
     this.fillFormFields(foreignerRegistrationForm, pdfForm);
+
+    this.addSign(signature, applicationFormPdf);
 
     const pdfBytes = await applicationFormPdf.save();
 
@@ -49,6 +49,13 @@ export class DocumentsService {
 
   private async addSign(signature: Express.Multer.File, pdf: PDFDocument) {
     const pngImage = await pdf.embedPng(signature.buffer);
+
+    const scaledImage = pngImage.scaleToFit(184, 13);
+    // const scaledImage = pngImage.scale(0.03);
+
+    console.log('Tamaño de la imagen');
+    console.log(scaledImage.width);
+    console.log(scaledImage.height);
 
     const firstPage = pdf.getPages()[0];
     console.log(firstPage.getWidth()); // 595
@@ -62,10 +69,10 @@ export class DocumentsService {
     // y: 255,
 
     firstPage.drawImage(pngImage, {
-      height: 10,
-      width: 130,
-      x: 437,
-      y: 255,
+      height: scaledImage.height,
+      width: scaledImage.width,
+      x: 470,
+      y: 252.5,
     });
   }
 
