@@ -21,7 +21,6 @@ export class DocumentsController {
     @Body() foreignerRegistrationForm: ForeignerRegistrationFormDto,
     @UploadedFile() signature: Express.Multer.File,
   ): Promise<StreamableFile> {
-    console.log(signature);
     return await this.documentsService.registerForeignResident(
       foreignerRegistrationForm,
       signature,

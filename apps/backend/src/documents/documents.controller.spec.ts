@@ -36,6 +36,12 @@ describe('DocumentsController', () => {
         sex: 'Male',
         telephone: '+82-2-9876-5432',
       };
+      const signature = {
+        buffer: Buffer.from('test'),
+        mimetype: 'image/png',
+        originalname: 'test-signature',
+        path: 'sample.url',
+      } as Express.Multer.File;
 
       const streamableFile = new StreamableFile(Buffer.from('Filled PDF'));
 
@@ -43,10 +49,14 @@ describe('DocumentsController', () => {
         .spyOn(documentsService, 'registerForeignResident')
         .mockResolvedValue(streamableFile);
 
-      const result = await documentsController.registerForeignResident(dto);
+      const result = await documentsController.registerForeignResident(
+        dto,
+        signature,
+      );
 
       expect(documentsService.registerForeignResident).toHaveBeenCalledWith(
         dto,
+        signature,
       );
       expect(result).toBe(streamableFile);
     });
