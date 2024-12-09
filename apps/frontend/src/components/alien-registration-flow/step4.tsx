@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from 'sonner';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -31,6 +29,7 @@ import { ForeignerRegistrationFormDto } from '@shared/dtos/foreigner-registratio
 import axios from 'axios';
 import { signatureURLtoBlob } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 const FormSchema = z.object({
   signature: z.string().min(1, 'Please sign the form'),
@@ -39,6 +38,7 @@ const FormSchema = z.object({
 type SignatureFormData = z.infer<typeof FormSchema>;
 
 export function Step4Form() {
+  const [isGenerating, setIsGenerating] = useState(false);
   const { state } = useStateMachine({ updateAction });
   const navigate = useNavigate();
 
@@ -48,20 +48,22 @@ export function Step4Form() {
   });
 
   const onSubmit = (data: SignatureFormData) => {
-    const signatureBlob = signatureURLtoBlob(data.signature);
-    generatePDF(state.data, signatureBlob);
-
-    toast(
-      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-      </pre>,
-    );
+    try {
+      const signatureBlob = signatureURLtoBlob(data.signature);
+      generatePDF(state.data, signatureBlob);
+    } catch (error) {
+      console.error('Form submission error', error);
+      toast.error('Failed to save the information. Please try again.');
+    }
   };
 
   const generatePDF = async (
     form: ForeignerRegistrationFormDto,
     signature: Blob,
   ) => {
+    if (isGenerating) return;
+
+    setIsGenerating(true);
     try {
       const formData = new FormData();
 
@@ -70,7 +72,7 @@ export function Step4Form() {
         formData.append(key, value as string);
       });
 
-      const response = await axios.post(
+      const response = axios.post(
         '/api/documents/registerForeignResident',
         formData,
         {
@@ -78,13 +80,27 @@ export function Step4Form() {
         },
       );
 
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      toast.promise(response, {
+        loading: 'Loading...',
+        success: () => {
+          return `Document has been generated`;
+        },
+        error: 'Something went wrong',
+      });
+
+      const blob = new Blob([(await response).data], {
+        type: 'application/pdf',
+      });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'generated_document.pdf';
+      link.download = 'Filled-Application-Form.pdf';
       link.click();
+
+      window.URL.revokeObjectURL(link.href);
     } catch (error) {
       console.error('Error generating PDF:', error);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -149,8 +165,16 @@ export function Step4Form() {
           form="step4"
           type="submit"
           className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          disabled={isGenerating}
         >
-          Generate PDF <FileDown className="ml-2 h-4 w-4" />
+          {isGenerating ? (
+            'Please wait...'
+          ) : (
+            <>
+              Generate PDF
+              <FileDown className="ml-2 h-4 w-4" />
+            </>
+          )}
         </Button>
       </CardFooter>
     </>

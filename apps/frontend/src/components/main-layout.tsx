@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router';
 import { Card } from './ui/card';
 import mascotImage from '../assets/hikorea-mascot.png';
+import { Toaster } from './ui/sonner';
 
 function MainLayout() {
   return (
@@ -22,6 +23,7 @@ function MainLayout() {
           </Card>
         </div>
       </div>
+      <Toaster expand={true} />
     </>
   );
 }

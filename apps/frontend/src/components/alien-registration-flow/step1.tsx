@@ -1,5 +1,4 @@
 'use client';
-import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -42,6 +41,7 @@ import { FormInput } from '../ui/form-input';
 import React from 'react';
 import { DelayProgress } from '../ui/delay-progress';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -79,14 +79,9 @@ export function Step1Form() {
 
       actions.updateAction(payloadAllStrings);
       navigate('/step2');
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>,
-      );
     } catch (error) {
       console.error('Form submission error', error);
-      toast.error('Failed to submit the form. Please try again.');
+      toast.error('Failed to save the information. Please try again.');
     }
   }
 
