@@ -92,12 +92,20 @@ describe('DocumentsService', () => {
     });
     describe('fillFormFields', () => {
       it('populates text fields and checkboxes correctly', async () => {
+        const foreignerRegistrationFieldsAllCaps = Object.fromEntries(
+          Object.entries(foreignerRegistrationFields).map(([key, value]) => [
+            key,
+            value.toUpperCase(),
+          ]),
+        );
+
         const fieldsToFill: { [key: string]: string } = {
+          applicant: foreignerRegistrationFields.lastName.toUpperCase(),
           birthDay: '15',
           birthMonth: '1',
           birthYear: '1990',
           dateOfApplication: '2022-02-02',
-          ...foreignerRegistrationFields,
+          ...foreignerRegistrationFieldsAllCaps,
         };
         await documentsService.registerForeignResident(
           foreignerRegistrationFields,

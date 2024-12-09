@@ -13,6 +13,7 @@ const MALE = 'male';
 export const STRING_FIELDS_MAPPING = {
   addressHomeCountry: 'address-home-country',
   addressKorea: 'address-korea',
+  applicant: 'applicant',
   birthDay: 'birth-day',
   birthMonth: 'birth-month',
   birthYear: 'birth-year',
@@ -75,6 +76,7 @@ export class DocumentsService {
     foreignRegistrationForm: ForeignerRegistrationFormDto,
     pdfForm: PDFForm,
   ): void {
+    const applicant = foreignRegistrationForm.lastName;
     const {
       day: birthDay,
       month: birthMonth,
@@ -84,6 +86,7 @@ export class DocumentsService {
 
     const extendedForeignRegistrationForm = {
       ...foreignRegistrationForm,
+      applicant,
       birthDay,
       birthMonth,
       birthYear,
@@ -93,7 +96,8 @@ export class DocumentsService {
     for (const [key, pdfFieldName] of Object.entries(STRING_FIELDS_MAPPING)) {
       const pdfField = pdfForm.getTextField(pdfFieldName);
       const fieldValue = (extendedForeignRegistrationForm as any)[key];
-      pdfField.setText(fieldValue);
+      const sanitizedFieldValue = fieldValue ? fieldValue.toUpperCase() : '';
+      pdfField.setText(sanitizedFieldValue);
     }
 
     if (foreignRegistrationForm.sex.toLowerCase() === MALE)
