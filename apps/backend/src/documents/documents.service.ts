@@ -39,7 +39,7 @@ export class DocumentsService {
 
     this.fillFormFields(foreignerRegistrationForm, pdfForm);
 
-    this.addSign(signature, applicationFormPdf);
+    this.addSigns(signature, applicationFormPdf);
 
     const pdfBytes = await applicationFormPdf.save();
 
@@ -49,32 +49,25 @@ export class DocumentsService {
     });
   }
 
-  private async addSign(signature: Express.Multer.File, pdf: PDFDocument) {
+  private async addSigns(signature: Express.Multer.File, pdf: PDFDocument) {
     const pngImage = await pdf.embedPng(signature.buffer);
 
-    const scaledImage = pngImage.scaleToFit(184, 13);
-    // const scaledImage = pngImage.scale(0.03);
-
-    // console.log('Tamaño de la imagen');
-    // console.log(scaledImage.width);
-    // console.log(scaledImage.height);
+    const scaledImage = pngImage.scaleToFit(184, 16);
 
     const firstPage = pdf.getPages()[0];
-    // console.log(firstPage.getWidth()); // 595
-    // console.log(firstPage.getHeight()); // 841
-
-    //TODO: ponerlas bien para que salga la firma de manera escala que tenga sentido
-    //coordenadas: x:
-    // height: 10,
-    // width: 130,
-    // x: 437,
-    // y: 255,
 
     firstPage.drawImage(pngImage, {
       height: scaledImage.height,
       width: scaledImage.width,
       x: 470,
-      y: 252.5,
+      y: 250.5,
+    });
+
+    firstPage.drawImage(pngImage, {
+      height: scaledImage.height * 2,
+      width: scaledImage.width * 2,
+      x: 160,
+      y: 128,
     });
   }
 

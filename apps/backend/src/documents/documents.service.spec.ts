@@ -1,7 +1,14 @@
 import { StreamableFile } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 // import { PDFDocument } from 'pdf-lib';
-import { PDFCheckBox, PDFDocument, PDFForm, PDFTextField } from 'pdf-lib';
+import {
+  PDFCheckBox,
+  PDFDocument,
+  PDFForm,
+  PDFImage,
+  PDFPage,
+  PDFTextField,
+} from 'pdf-lib';
 
 import { DocumentsService, STRING_FIELDS_MAPPING } from './documents.service';
 
@@ -45,17 +52,10 @@ describe('DocumentsService', () => {
     let textField: jest.Mocked<PDFTextField>;
     let checkBoxField: jest.Mocked<PDFCheckBox>;
     let pdfForm: jest.Mocked<PDFForm>;
+    let pdfImage: jest.Mocked<PDFImage>;
+    let pdfPage: jest.Mocked<PDFPage>;
 
     beforeEach(async () => {
-      const pdfImage = {
-        height: 200,
-        scaleToFit: jest.fn().mockReturnValue({ height: 13, width: 184 }),
-        width: 300,
-      };
-      const pdfPage = {
-        drawImage: jest.fn(),
-      };
-
       textField = {
         setText: jest.fn(),
       } as any;
@@ -65,6 +65,14 @@ describe('DocumentsService', () => {
       pdfForm = {
         getCheckBox: jest.fn(() => checkBoxField),
         getTextField: jest.fn(() => textField),
+      } as any;
+      pdfImage = {
+        height: 200,
+        scaleToFit: jest.fn().mockReturnValue({ height: 13, width: 184 }),
+        width: 300,
+      } as any;
+      pdfPage = {
+        drawImage: jest.fn(),
       } as any;
 
       jest.spyOn(PDFDocument, 'load').mockResolvedValue({
@@ -83,7 +91,7 @@ describe('DocumentsService', () => {
       expect(result).toBeInstanceOf(StreamableFile);
     });
     describe('fillFormFields', () => {
-      it('should populate text fields and checkboxes correctly', async () => {
+      it('populates text fields and checkboxes correctly', async () => {
         const fieldsToFill: { [key: string]: string } = {
           birthDay: '15',
           birthMonth: '1',
@@ -105,6 +113,16 @@ describe('DocumentsService', () => {
 
         expect(pdfForm.getCheckBox).toHaveBeenCalledWith('sex-male');
         expect(checkBoxField.check).toHaveBeenCalled();
+      });
+    });
+    describe('addSigns', () => {
+      it('adds 2 signs as images in the pdf', async () => {
+        await documentsService.registerForeignResident(
+          foreignerRegistrationFields,
+          signature,
+        );
+
+        expect(pdfPage.drawImage).toHaveBeenCalledTimes(2);
       });
     });
   });
