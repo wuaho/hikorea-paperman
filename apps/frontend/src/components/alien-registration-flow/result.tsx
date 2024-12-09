@@ -11,6 +11,7 @@ import {
 } from '../ui/card';
 import { useNavigate } from 'react-router';
 import { DelayProgress } from '../ui/delay-progress';
+import { motion } from 'framer-motion';
 
 const fieldLabelsOrdered: [string, string][] = [
   ['firstName', 'First Name'],
@@ -45,22 +46,28 @@ export const FormResult = () => {
           className="mb-6"
           initialValue={60}
           targetValue={80}
-          delay={0}
+          delay={200}
         />
-        <div className="space-y-4">
-          {fieldLabelsOrdered.map((field) => (
-            <p
-              key={field[0]}
-              className="flex justify-between border-b border-gray-200 py-2"
-            >
-              <strong className="text-[#013563]">{field[1]}:</strong>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="space-y-4">
+            {fieldLabelsOrdered.map((field) => (
+              <p
+                key={field[0]}
+                className="flex justify-between border-b border-gray-200 py-2"
+              >
+                <strong className="text-[#013563]">{field[1]}:</strong>
 
-              <span className="ml-32">
-                {state.data[field[0] as keyof GlobalStateData] || 'N/A'}
-              </span>
-            </p>
-          ))}
-        </div>
+                <span className="ml-32">
+                  {state.data[field[0] as keyof GlobalStateData] || 'N/A'}
+                </span>
+              </p>
+            ))}
+          </div>
+        </motion.div>
       </CardContent>
       <CardFooter className="flex justify-between ">
         <Button

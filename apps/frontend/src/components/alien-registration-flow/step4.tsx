@@ -30,6 +30,7 @@ import updateAction from './update-action';
 import { ForeignerRegistrationFormDto } from '@shared/dtos/foreigner-registration-form.dto';
 import axios from 'axios';
 import { signatureURLtoBlob } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 const FormSchema = z.object({
   signature: z.string().min(1, 'Please sign the form'),
@@ -100,32 +101,38 @@ export function Step4Form() {
           className="mb-6"
           initialValue={80}
           targetValue={100}
-          delay={0}
+          delay={200}
         />
-        <Form {...form}>
-          <form
-            id="step4"
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
-          >
-            <FormField
-              control={form.control}
-              name="signature"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <div>
-                    <FormLabel>Sign here</FormLabel>
-                  </div>
-                  <SignatureInput
-                    canvasRef={canvasRef}
-                    onSignatureChange={field.onChange}
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Form {...form}>
+            <form
+              id="step4"
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6"
+            >
+              <FormField
+                control={form.control}
+                name="signature"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <div>
+                      <FormLabel>Sign here</FormLabel>
+                    </div>
+                    <SignatureInput
+                      canvasRef={canvasRef}
+                      onSignatureChange={field.onChange}
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </motion.div>
       </CardContent>
       <CardFooter className="flex justify-between ">
         <Button

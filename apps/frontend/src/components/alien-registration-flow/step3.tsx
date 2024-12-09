@@ -26,6 +26,7 @@ import {
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
 import { KoreanPhoneInput } from '../ui/korean-phone-input';
+import { motion } from 'framer-motion';
 
 const formSchema = z.object({
   mobile: z.string().min(9).max(13),
@@ -78,77 +79,83 @@ export function Step3Form() {
           className="mb-6"
           initialValue={40}
           targetValue={60}
-          delay={0}
+          delay={200}
         />
-        <Form {...form}>
-          <form
-            id="step3"
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 max-w-3xl mx-auto"
-          >
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-6">
-                <FormField
-                  control={form.control}
-                  name="mobile"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col items-start">
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl className="w-full">
-                        <KoreanPhoneInput {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Form {...form}>
+            <form
+              id="step3"
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-8 max-w-3xl mx-auto"
+            >
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-6">
+                  <FormField
+                    control={form.control}
+                    name="mobile"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col items-start">
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl className="w-full">
+                          <KoreanPhoneInput {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="col-span-6">
+                  <FormField
+                    control={form.control}
+                    name="telephone"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col items-start">
+                        <FormLabel>Telephone Number</FormLabel>
+                        <FormControl className="w-full">
+                          <KoreanPhoneInput {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
 
-              <div className="col-span-6">
-                <FormField
-                  control={form.control}
-                  name="telephone"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col items-start">
-                      <FormLabel>Telephone Number</FormLabel>
-                      <FormControl className="w-full">
-                        <KoreanPhoneInput {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
+              <FormField
+                control={form.control}
+                name="addressKorea"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address in Korea</FormLabel>
+                    <FormControl>
+                      <FormInput type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="addressKorea"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address in Korea</FormLabel>
-                  <FormControl>
-                    <FormInput type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="addressHomeCountry"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address in Home Country</FormLabel>
-                  <FormControl>
-                    <FormInput type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+              <FormField
+                control={form.control}
+                name="addressHomeCountry"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address in Home Country</FormLabel>
+                    <FormControl>
+                      <FormInput type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </motion.div>
       </CardContent>
       <CardFooter className="flex justify-between ">
         <Button
