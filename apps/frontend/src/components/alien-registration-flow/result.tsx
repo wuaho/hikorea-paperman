@@ -38,7 +38,7 @@ export const FormResult = () => {
       <CardHeader className="bg-[#013563] text-white">
         <CardTitle> Review Your Information</CardTitle>
         <CardDescription className="text-gray-200">
-          Please check every field
+          Take a moment to review and confirm your information
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

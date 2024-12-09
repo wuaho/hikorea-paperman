@@ -91,9 +91,9 @@ export function Step4Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Personal Information</CardTitle>
+        <CardTitle> Sign and Download</CardTitle>
         <CardDescription className="text-gray-200">
-          Please fill in the required information
+          Sign the form and download your document
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

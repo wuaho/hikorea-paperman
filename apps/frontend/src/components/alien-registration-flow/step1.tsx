@@ -95,7 +95,7 @@ export function Step1Form() {
       <CardHeader className="bg-[#013563] text-white">
         <CardTitle> Personal Information</CardTitle>
         <CardDescription className="text-gray-200">
-          Please fill in the required information
+          Provide your basic personal information to get started
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

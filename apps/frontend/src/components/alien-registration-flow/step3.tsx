@@ -69,9 +69,9 @@ export function Step3Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Additional Details</CardTitle>
+        <CardTitle> Contact Information</CardTitle>
         <CardDescription className="text-gray-200">
-          Please fill in the required information
+          Enter your contact and address information
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

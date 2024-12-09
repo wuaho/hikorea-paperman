@@ -92,7 +92,7 @@ export function Step2Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Additional Details</CardTitle>
+        <CardTitle> Passport Information</CardTitle>
         <CardDescription className="text-gray-200">
           Please fill in the required information
         </CardDescription>
