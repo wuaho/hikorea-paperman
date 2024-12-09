@@ -4,18 +4,43 @@ import { cn } from '@/lib/utils';
 import flags from 'react-phone-number-input/flags';
 import { Button } from './button';
 
-export interface KoreanPhoneInputProps extends InputProps {}
+export interface KoreanPhoneInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const KoreanPhoneInput = React.forwardRef<
   HTMLInputElement,
   KoreanPhoneInputProps
->(({ className, ...props }, ref) => {
+>(({ className, value, onChange, ...props }, ref) => {
+  const formatPhoneNumber = (input: string): string => {
+    const digits = input.replace(/\D+/g, '');
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 7)
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedPhoneNumber = formatPhoneNumber(e.target.value);
+
+    const event = {
+      ...e,
+      target: {
+        ...e.target,
+        value: formattedPhoneNumber,
+      },
+    };
+
+    onChange?.(event);
+  };
+
   return (
     <div className="flex items-center">
       <KoreaCountrySelect />
       <div className="flex items-center">
         <Input
           ref={ref}
+          value={value}
+          onChange={handleInputChange}
           className={cn(
             'rounded-e-lg rounded-s-none hover:bg-zinc-100 hover:text-zinc-900',
             className,
