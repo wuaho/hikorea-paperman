@@ -74,12 +74,11 @@ export function Step3Form() {
           className="mb-6"
           initialValue={40}
           targetValue={60}
-          delay={200}
+          delay={0}
         />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
         >
           <Form {...form}>
             <form

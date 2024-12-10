@@ -46,12 +46,11 @@ export const FormResult = () => {
           className="mb-6"
           initialValue={60}
           targetValue={80}
-          delay={200}
+          delay={0}
         />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
         >
           <div className="space-y-4">
             {fieldLabelsOrdered.map((field) => (
