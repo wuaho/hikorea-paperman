@@ -4,7 +4,7 @@
   Hi Korea Assistant
   <br>
 </h1>
-<h4 align="center">A revamp of the <img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="15"/> <a href="https://www.hikorea.go.kr/Main.pt" target="_blank">Hi Korea Immigration Portal</a>.</h4>
+<h4 align="center">A minimal redesign of the <img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="14/> <a href="https://www.hikorea.go.kr/Main.pt" target="_blank">Hi Korea Immigration Portal</a>.</h4>
 
 <p align="center">
   <a href="#introduction">Introduction</a> •
