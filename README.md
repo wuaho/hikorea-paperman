@@ -1,10 +1,15 @@
-<h1>
-<img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="26"/> Hi Korea Assistant
+<h1 align="center" >
+Hi Korea Assistant
+<br>
+<br>
+<img src="media/hikorea-mascot.png" alt="HiKorea Mascot" width="200" />
 
 </h1>
-<img src="media/home3.png" alt="HiKorea Mascot" />
+<h4 align="center">A revamp of the <img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="15"/> <a href="https://www.hikorea.go.kr/Main.pt" target="_blank">Hi Korea Immigration Portal </a>.</h4>
 
-This project aims to revamp the user experience of [<img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="13"/> Hi Korea immigration portal](https://www.hikorea.go.kr/Main.pt). The goal is to provide an interactive flow where users are asked what they need, and then guided through relevant questions, avoiding long and static forms. As users progress, they fill in only the necessary information.
+This project aims to revamp the user experience of [<img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="13"/> Hi Korea immigration portal](https://www.hikorea.go.kr/Main.pt). This site provides services and information for foreigners living in Korea, such as visa applications, residency permits, and other immigration-related matters.
+
+The goal is to provide an interactive flow where users are asked what they need, and then guided through relevant questions, avoiding long and static forms. As users progress, they fill in only the necessary information.
 
 ### Demo:
 
