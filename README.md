@@ -13,7 +13,7 @@
   <a href="#how-to-run-the-project">How to run the project</a>
 </p>
 
-<img src="media/home3.png" alt="Hi Korea Home" />
+<img src="media/home.png" alt="Hi Korea Home" />
 
 ## Introduction
 
@@ -25,8 +25,8 @@ The goal is to provide an interactive flow where users are asked what they need,
 
 ### Backend
 
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![NestJs](https://img.shields.io/badge/-NestJs-ea2845?style=for-the-badge&logo=nestjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 
 ### Frontend
 
