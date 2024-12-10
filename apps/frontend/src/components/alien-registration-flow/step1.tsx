@@ -38,19 +38,33 @@ import {
   CardTitle,
 } from '../ui/card';
 import { FormInput } from '../ui/form-input';
-import React from 'react';
 import { DelayProgress } from '../ui/delay-progress';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
-  firstName: z.string().min(2).max(50),
-  lastName: z.string().min(2).max(50),
-  email: z.string().email(),
-  birthdate: z.coerce.date().refine((date) => date < new Date(), {
-    message: 'Birthdate must be in the past',
+  firstName: z
+    .string()
+    .min(1, { message: 'Enter your first name.' })
+    .max(50, { message: 'Your first name must be less than 50 characters.' }),
+  lastName: z
+    .string()
+    .min(1, { message: 'Enter your last name.' })
+    .max(50, { message: 'Your last name must be less than 50 characters.' }),
+  email: z.string().email({ message: 'Enter a valid email address.' }),
+  birthdate: z.coerce
+    .date({
+      errorMap: (issue, { defaultError }) => ({
+        message:
+          issue.code === 'invalid_date' ? "That's not a date!" : defaultError,
+      }),
+    })
+    .refine((date) => date < new Date(), {
+      message: 'Are you sure this is your birthday?',
+    }),
+  sex: z.enum(['female', 'male'], {
+    message: 'Select one of the options.',
   }),
-  sex: z.string(),
 });
 
 export function Step1Form() {
@@ -60,12 +74,18 @@ export function Step1Form() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: {
       firstName: data.firstName || '',
       lastName: data.lastName || '',
       email: data.email || '',
       birthdate: data.birthdate ? parseISO(data.birthdate) : undefined,
-      sex: data.sex || '',
+      sex:
+        data.sex === 'female'
+          ? 'female'
+          : data.sex === 'male'
+            ? 'male'
+            : undefined,
     },
   });
 
@@ -119,7 +139,7 @@ export function Step1Form() {
                       <FormItem>
                         <FormLabel>First Name</FormLabel>
                         <FormControl>
-                          <FormInput type="text" {...field} />
+                          <FormInput type="text" maxLength={50} {...field} />
                         </FormControl>
 
                         <FormMessage />
@@ -136,7 +156,7 @@ export function Step1Form() {
                       <FormItem>
                         <FormLabel>Last Name</FormLabel>
                         <FormControl>
-                          <FormInput type="text" {...field} />
+                          <FormInput type="text" maxLength={50} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,7 +172,7 @@ export function Step1Form() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <FormInput type="email" {...field} />
+                      <FormInput type="email" maxLength={320} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -218,8 +238,8 @@ export function Step1Form() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="male">Male</SelectItem>
                             <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="male">Male</SelectItem>
                           </SelectContent>
                         </Select>
 

@@ -31,11 +31,11 @@ import { signatureURLtoBlob } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
-const FormSchema = z.object({
-  signature: z.string().min(1, 'Please sign the form'),
+const formSchema = z.object({
+  signature: z
+    .string({ message: 'Please sign in the form.' })
+    .min(1, { message: 'Please sign in the form.' }),
 });
-
-type SignatureFormData = z.infer<typeof FormSchema>;
 
 export function Step4Form() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -43,11 +43,11 @@ export function Step4Form() {
   const navigate = useNavigate();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const form = useForm<SignatureFormData>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: SignatureFormData) => {
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     try {
       const signatureBlob = signatureURLtoBlob(data.signature);
       generatePDF(state.data, signatureBlob);

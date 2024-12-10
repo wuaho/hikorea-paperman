@@ -38,10 +38,25 @@ import CountrySelector from '../ui/country-selector';
 import { motion } from 'framer-motion';
 
 const formSchema = z.object({
-  nationality: z.string(),
-  passportNumber: z.string().min(0).max(9),
-  passportIssueDate: z.coerce.date(),
-  passportExpiryDate: z.coerce.date(),
+  nationality: z.string().min(1, { message: 'Enter your nationality.' }),
+  passportNumber: z
+    .string()
+    .min(1, { message: 'Enter your passport number.' })
+    .max(9, {
+      message: 'Are you sure this is your passport number?',
+    }),
+  passportIssueDate: z.coerce.date({
+    errorMap: (issue, { defaultError }) => ({
+      message:
+        issue.code === 'invalid_date' ? "That's not a date!" : defaultError,
+    }),
+  }),
+  passportExpiryDate: z.coerce.date({
+    errorMap: (issue, { defaultError }) => ({
+      message:
+        issue.code === 'invalid_date' ? "That's not a date!" : defaultError,
+    }),
+  }),
 });
 
 export function Step2Form() {
@@ -51,6 +66,7 @@ export function Step2Form() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: {
       nationality: data.nationality || '',
       passportNumber: data.passportNumber || '',
@@ -134,7 +150,7 @@ export function Step2Form() {
                   <FormItem>
                     <FormLabel>Passport Number</FormLabel>
                     <FormControl>
-                      <FormInput type="text" {...field} />
+                      <FormInput type="text" maxLength={9} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

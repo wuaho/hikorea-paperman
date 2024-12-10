@@ -29,10 +29,18 @@ import { KoreanPhoneInput } from '../ui/korean-phone-input';
 import { motion } from 'framer-motion';
 
 const formSchema = z.object({
-  mobile: z.string().min(9).max(13),
-  telephone: z.string().min(9).max(13),
-  addressKorea: z.string().min(5).max(100),
-  addressHomeCountry: z.string().min(5).max(100),
+  mobile: z.string().min(9, { message: 'Enter a valid phone number.' }),
+  telephone: z.string().min(9).optional().or(z.literal('')),
+  addressKorea: z
+    .string()
+    .min(5, {
+      message: 'Enter your address.',
+    })
+    .max(100, { message: 'Your address must be less than 100 characters.' }),
+  addressHomeCountry: z
+    .string()
+    .min(5, { message: 'Enter your address.' })
+    .max(100, { message: 'Your address must be less than 100 characters.' }),
 });
 
 export function Step3Form() {
@@ -42,6 +50,7 @@ export function Step3Form() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: {
       mobile: data.mobile || '',
       telephone: data.telephone || '',
@@ -111,7 +120,10 @@ export function Step3Form() {
                       <FormItem className="flex flex-col items-start">
                         <FormLabel>Telephone Number</FormLabel>
                         <FormControl className="w-full">
-                          <KoreanPhoneInput {...field} />
+                          <KoreanPhoneInput
+                            placeholder="(optional)"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
