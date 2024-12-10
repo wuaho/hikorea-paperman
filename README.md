@@ -1,9 +1,8 @@
 <h1 align="center" >
-Hi Korea Assistant
-<br>
-<br>
-<img src="media/hikorea-mascot.png" alt="HiKorea Mascot" width="200" />
-
+  <img src="media/hikorea-mascot.png" alt="HiKorea Mascot" width="200" />
+  <br>
+  Hi Korea Assistant
+  <br>
 </h1>
 <h4 align="center">A revamp of the <img src="https://cdn-icons-png.flaticon.com/512/197/197582.png" width="15"/> <a href="https://www.hikorea.go.kr/Main.pt" target="_blank">Hi Korea Immigration Portal </a>.</h4>
 
