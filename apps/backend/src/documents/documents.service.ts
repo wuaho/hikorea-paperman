@@ -100,15 +100,21 @@ export class DocumentsService {
       pdfField.setText(sanitizedFieldValue);
     }
 
-    if (foreignRegistrationForm.sex.toLowerCase() === MALE)
+    if (foreignRegistrationForm.sex.toLowerCase() === MALE) {
       pdfForm.getCheckBox('sex-male').check();
-    if (foreignRegistrationForm.sex.toLowerCase() === FEMALE)
+      pdfForm.getCheckBox('sex-male').defaultUpdateAppearances();
+    }
+    if (foreignRegistrationForm.sex.toLowerCase() === FEMALE) {
       pdfForm.getCheckBox('sex-female').check();
+      pdfForm.getCheckBox('sex-female').defaultUpdateAppearances();
+    }
 
     pdfForm.getCheckBox('foreign-resident-registration').check();
+    pdfForm
+      .getCheckBox('foreign-resident-registration')
+      .defaultUpdateAppearances();
 
-    // TODO this gives some problems
-    // pdfForm.flatten();
+    pdfForm.flatten();
   }
 
   private formatDate(date: Date): string {

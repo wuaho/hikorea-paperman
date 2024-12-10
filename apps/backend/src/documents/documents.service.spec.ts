@@ -61,8 +61,10 @@ describe('DocumentsService', () => {
       } as any;
       checkBoxField = {
         check: jest.fn(),
+        defaultUpdateAppearances: jest.fn(),
       } as any;
       pdfForm = {
+        flatten: jest.fn(),
         getCheckBox: jest.fn(() => checkBoxField),
         getTextField: jest.fn(() => textField),
       } as any;
