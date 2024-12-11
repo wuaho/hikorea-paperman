@@ -24,7 +24,9 @@
   <a href="#how-to-run-the-project">How to run the project</a>
 </p>
 
-<img src="media/home.png" alt="Hi Korea Home" />
+<!-- <img src="media/home.png" alt="Hi Korea Home" /> -->
+
+![Hi Korea Quick Demo](media/HiKoreaQuickDemo.gif)
 
 ## Introduction
 
