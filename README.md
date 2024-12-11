@@ -20,11 +20,9 @@
   <a href="#introduction">Introduction</a> •
   <a href="#roadmap">Roadmap</a> •
   <a href="#tech-stack">Tech Stack</a> •
-  <a href="#features">Features</a> •
+  <a href="#demo">Features</a> •
   <a href="#how-to-run-the-project">How to run the project</a>
 </p>
-
-<!-- <img src="media/home.png" alt="Hi Korea Home" /> -->
 
 ![Hi Korea Quick Demo](media/HiKoreaQuickDemo.gif)
 
@@ -69,11 +67,9 @@ The goal is to provide an interactive flow where users are asked what they need,
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## Features
+## Demo
 
-- **Dynamic flows**: Users select what they need, and the system adjusts the questions in real-time.
-- **Intuitive interface**: A clear, guided experience with validations at every step.
-- **Process optimization**: More efficient forms that reduce user input time.
+<video controls src="media/HiKoreaLongDemo.mp4" title="Hi Korea Demo"></video>
 
 ## How to run the project
 
