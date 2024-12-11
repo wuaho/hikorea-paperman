@@ -69,7 +69,8 @@ The goal is to provide an interactive flow where users are asked what they need,
 
 ## Demo
 
-<video controls src="media/HiKoreaLongDemo.mp4" title="Hi Korea Demo"></video>
+https://github.com/user-attachments/assets/0189e71a-fcc0-454a-a002-0af56f3c348b
+
 
 ## How to run the project
 
