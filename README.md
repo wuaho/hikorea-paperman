@@ -20,7 +20,7 @@
   <a href="#introduction">Introduction</a> •
   <a href="#roadmap">Roadmap</a> •
   <a href="#tech-stack">Tech Stack</a> •
-  <a href="#demo">Features</a> •
+  <a href="#demo">Demo</a> •
   <a href="#how-to-run-the-project">How to run the project</a>
 </p>
 
@@ -70,7 +70,6 @@ The goal is to provide an interactive flow where users are asked what they need,
 ## Demo
 
 https://github.com/user-attachments/assets/0189e71a-fcc0-454a-a002-0af56f3c348b
-
 
 ## How to run the project
 
