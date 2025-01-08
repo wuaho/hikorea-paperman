@@ -50,7 +50,7 @@ The goal is to provide an interactive flow where users are asked what they need,
 
 ### **Phase 3: Complete Redesign**
 
-- Reimagine the Hi Korea Immigration Portal as if I were tasked with creating its official application.
+- Reimagine the Hi Korea Immigration Portal as if I were the one responsible for creating its official application.
 - Focus on innovation and creating a seamless, modern user experience that fully transforms the portal.
 
 ## Tech Stack
