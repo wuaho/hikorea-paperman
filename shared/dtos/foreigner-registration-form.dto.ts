@@ -1,4 +1,4 @@
-export class ForeignerRegistrationFormDto {
+export interface ForeignerRegistrationFormDto {
   addressHomeCountry: string;
   addressKorea: string;
   birthdate: string;

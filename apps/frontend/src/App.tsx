@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlienRegistrationFlow } from './components/alien-registration-flow';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { StateMachineProvider, createStore } from 'little-state-machine';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, InputProps } from './input';
+import { Input } from './input';
 import { cn } from '@/lib/utils';
 import flags from 'react-phone-number-input/flags';
 import { Button } from './button';
@@ -70,15 +70,7 @@ const FlagComponent = () => {
 
   return (
     <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20">
-      {Flag && (
-        <Flag
-          title="South Korea"
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
-        />
-      )}{' '}
+      {Flag && <Flag title="South Korea" />}{' '}
     </span>
   );
 };
