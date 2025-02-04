@@ -25,7 +25,7 @@ FROM base AS backend
 COPY --from=build /prod/backend /prod/backend
 WORKDIR /prod/backend
 EXPOSE 3000
-CMD [ "pnpm", "start" ]
+CMD [ "pnpm", "start:prod" ]
 
 # FROM base AS app2
 # COPY --from=build /prod/app2 /prod/app2
