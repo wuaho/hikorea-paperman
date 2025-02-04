@@ -51,7 +51,7 @@ importers:
         specifier: ^1.4.12
         version: 1.4.12
       '@types/node':
-        specifier: ^20.3.1
+        specifier: ^20.17.8
         version: 20.17.8
       '@types/supertest':
         specifier: ^6.0.0
@@ -7564,7 +7564,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.17.8
+      '@types/node': 22.9.4
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
