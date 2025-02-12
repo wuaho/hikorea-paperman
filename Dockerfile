@@ -17,9 +17,12 @@ WORKDIR /usr/src/app
 # Install dependencies with pnpm.
 RUN pnpm install --frozen-lockfile
 # RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+#URL of backend server for frontend
+ENV VITE_API_BASE_URL=http://backend:3000
+
 RUN pnpm run -r build
 RUN pnpm deploy --filter=backend --prod /prod/backend
-# RUN pnpm deploy --filter=app2 --prod /prod/app2
+RUN pnpm deploy --filter=frontend --prod /prod/frontend
 
 FROM base AS backend
 COPY --from=build /prod/backend /prod/backend
@@ -27,8 +30,9 @@ WORKDIR /prod/backend
 EXPOSE 3000
 CMD [ "pnpm", "start:prod" ]
 
-# FROM base AS app2
-# COPY --from=build /prod/app2 /prod/app2
-# WORKDIR /prod/app2
-# EXPOSE 8001
-# CMD [ "pnpm", "start" ]
+FROM base AS frontend
+RUN npm install -g serve
+COPY --from=build /prod/frontend/dist /prod/frontend
+WORKDIR /prod/frontend
+EXPOSE 8001
+CMD [ "serve", "-s", ".", "-l", "8001" ]
