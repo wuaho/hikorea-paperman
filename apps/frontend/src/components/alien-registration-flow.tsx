@@ -30,7 +30,7 @@ import {
 import { ChevronRight, FileDown, HelpCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import mascotImage from './../assets/hikorea-mascot.png';
+import mascotImage from './../assets/hikorea-mascot.webp';
 
 const countries = [
   { code: 'kr', name: 'Korea', flag: '🇰🇷' },
