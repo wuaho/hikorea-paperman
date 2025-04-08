@@ -7,6 +7,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
 
 export default defineConfig({
   plugins: [react()],
+  envDir: '../../',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -15,7 +16,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': { target: process.env.BACKEND_URL, changeOrigin: true },
+      '/api': { target: 'http://localhost:3000', changeOrigin: true },
     },
   },
 });

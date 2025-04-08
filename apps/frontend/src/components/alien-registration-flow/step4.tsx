@@ -31,6 +31,13 @@ import { signatureURLtoBlob } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
+const baseUrl =
+  import.meta.env.MODE === 'development'
+    ? '/api'
+    : import.meta.env.VITE_BACKEND_URL;
+
+console.log('baseUrl', baseUrl);
+
 const formSchema = z.object({
   signature: z
     .string({ message: 'Please sign in the form.' })
@@ -73,12 +80,14 @@ export function Step4Form() {
       });
 
       const response = axios.post(
-        '/api/documents/registerForeignResident',
+        `${baseUrl}/documents/registerForeignResident`,
         formData,
         {
           responseType: 'blob',
         },
       );
+
+      console.log((await response).request);
 
       toast.promise(response, {
         loading: 'Loading...',
