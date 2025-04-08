@@ -34,7 +34,7 @@ import { toast } from 'sonner';
 const baseUrl =
   import.meta.env.MODE === 'development'
     ? '/api'
-    : import.meta.env.VITE_BACKEND_URL;
+    : import.meta.env.VITE_PROD_BACKEND_URL;
 
 console.log('baseUrl', baseUrl);
 
