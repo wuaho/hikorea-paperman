@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 
+import { AuthModule } from './auth/auth.module';
 import { DocumentsModule } from './documents/documents.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { DocumentsModule } from './documents/documents.module';
       ],
     }),
     ConfigModule.forRoot({ envFilePath: '../../.env' }),
+    AuthModule,
     DocumentsModule,
   ],
   providers: [],

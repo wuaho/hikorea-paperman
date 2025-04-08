@@ -35,6 +35,7 @@ const baseUrl =
   import.meta.env.MODE === 'development'
     ? '/api'
     : import.meta.env.VITE_PROD_BACKEND_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const formSchema = z.object({
   signature: z
@@ -82,6 +83,7 @@ export function Step4Form() {
         formData,
         {
           responseType: 'blob',
+          headers: { 'x-api-key': API_KEY },
         },
       );
 
