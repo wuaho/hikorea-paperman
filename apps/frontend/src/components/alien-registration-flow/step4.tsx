@@ -36,8 +36,6 @@ const baseUrl =
     ? '/api'
     : import.meta.env.VITE_PROD_BACKEND_URL;
 
-console.log('baseUrl', baseUrl);
-
 const formSchema = z.object({
   signature: z
     .string({ message: 'Please sign in the form.' })
