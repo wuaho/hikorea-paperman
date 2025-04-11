@@ -31,19 +31,19 @@ export function FlowSelector() {
         >
           <div className="space-y-4">
             <Button
-              className="w-full justify-start bg-[#013563] hover:bg-[#014583] transition-colors"
+              className="w-full justify-start bg-[#013563] transition-colors hover:bg-[#014583]"
               onClick={() => navigate('/step1')}
             >
-              Foreign Resident Registration
+              Foreign resident registration
             </Button>
             <Button
-              className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
+              className="w-full cursor-not-allowed justify-start bg-gray-300 text-gray-600"
               disabled
             >
               Extend visa
             </Button>
             <Button
-              className="w-full justify-start bg-gray-300 text-gray-600 cursor-not-allowed"
+              className="w-full cursor-not-allowed justify-start bg-gray-300 text-gray-600"
               disabled
             >
               Change status of visa
@@ -54,7 +54,7 @@ export function FlowSelector() {
       <CardFooter className="flex justify-end">
         <Button
           onClick={() => navigate('/step1')}
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
         >
           Start <ChevronRight className="ml-2 h-4 w-4" />
         </Button>

@@ -108,7 +108,7 @@ export function Step1Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Personal Information</CardTitle>
+        <CardTitle> Personal information</CardTitle>
         <CardDescription className="text-gray-200">
           Provide your basic personal information to get started
         </CardDescription>
@@ -128,16 +128,16 @@ export function Step1Form() {
             <form
               id="step1"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 max-w-3xl mx-auto "
+              className="mx-auto max-w-3xl space-y-8"
             >
-              <div className="grid grid-cols-12 gap-4 ">
-                <div className="col-span-6 ">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-6">
                   <FormField
                     control={form.control}
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>First Name</FormLabel>
+                        <FormLabel>First name</FormLabel>
                         <FormControl>
                           <FormInput type="text" maxLength={50} {...field} />
                         </FormControl>
@@ -154,7 +154,7 @@ export function Step1Form() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel>Last name</FormLabel>
                         <FormControl>
                           <FormInput type="text" maxLength={50} {...field} />
                         </FormControl>
@@ -186,7 +186,7 @@ export function Step1Form() {
                     name="birthdate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Date of Birth</FormLabel>
+                        <FormLabel>Date of birth</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -253,7 +253,7 @@ export function Step1Form() {
           </Form>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-between ">
+      <CardFooter className="flex justify-between">
         <Button
           variant="outline"
           onClick={() => {
@@ -267,7 +267,7 @@ export function Step1Form() {
         <Button
           form="step1"
           type="submit"
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>

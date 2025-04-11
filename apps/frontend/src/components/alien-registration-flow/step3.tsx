@@ -73,7 +73,7 @@ export function Step3Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Contact Information</CardTitle>
+        <CardTitle> Contact information</CardTitle>
         <CardDescription className="text-gray-200">
           Enter your contact and address information
         </CardDescription>
@@ -93,7 +93,7 @@ export function Step3Form() {
             <form
               id="step3"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 max-w-3xl mx-auto"
+              className="mx-auto max-w-3xl space-y-8"
             >
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-6">
@@ -102,7 +102,7 @@ export function Step3Form() {
                     name="mobile"
                     render={({ field }) => (
                       <FormItem className="flex flex-col items-start">
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>Phone number</FormLabel>
                         <FormControl className="w-full">
                           <KoreanPhoneInput {...field} />
                         </FormControl>
@@ -118,7 +118,7 @@ export function Step3Form() {
                     name="telephone"
                     render={({ field }) => (
                       <FormItem className="flex flex-col items-start">
-                        <FormLabel>Telephone Number</FormLabel>
+                        <FormLabel>Telephone number</FormLabel>
                         <FormControl className="w-full">
                           <KoreanPhoneInput
                             placeholder="(optional)"
@@ -137,7 +137,7 @@ export function Step3Form() {
                 name="addressKorea"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Address in Korea</FormLabel>
+                    <FormLabel>Address in South Korea</FormLabel>
                     <FormControl>
                       <FormInput type="text" {...field} />
                     </FormControl>
@@ -151,7 +151,7 @@ export function Step3Form() {
                 name="addressHomeCountry"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Address in Home Country</FormLabel>
+                    <FormLabel>Address in your home country</FormLabel>
                     <FormControl>
                       <FormInput type="text" {...field} />
                     </FormControl>
@@ -163,7 +163,7 @@ export function Step3Form() {
           </Form>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-between ">
+      <CardFooter className="flex justify-between">
         <Button
           variant="outline"
           onClick={() => {
@@ -177,7 +177,7 @@ export function Step3Form() {
         <Button
           form="step3"
           type="submit"
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>

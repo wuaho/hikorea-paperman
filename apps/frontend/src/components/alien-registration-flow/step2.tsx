@@ -101,7 +101,7 @@ export function Step2Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Passport Information</CardTitle>
+        <CardTitle> Passport information</CardTitle>
         <CardDescription className="text-gray-200">
           Please fill in the required information
         </CardDescription>
@@ -122,7 +122,7 @@ export function Step2Form() {
             <form
               id="step2"
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 max-w-3xl mx-auto"
+              className="mx-auto max-w-3xl space-y-8"
             >
               <FormField
                 control={form.control}
@@ -148,7 +148,7 @@ export function Step2Form() {
                 name="passportNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Passport Number</FormLabel>
+                    <FormLabel>Passport number</FormLabel>
                     <FormControl>
                       <FormInput type="text" maxLength={9} {...field} />
                     </FormControl>
@@ -164,7 +164,7 @@ export function Step2Form() {
                     name="passportIssueDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Passport Issue Date</FormLabel>
+                        <FormLabel>Passport issue date</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -205,7 +205,7 @@ export function Step2Form() {
                     name="passportExpiryDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Passport Expiration Date</FormLabel>
+                        <FormLabel>Passport expiration date</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -244,7 +244,7 @@ export function Step2Form() {
           </Form>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-between ">
+      <CardFooter className="flex justify-between">
         <Button
           variant="outline"
           onClick={() => {
@@ -258,7 +258,7 @@ export function Step2Form() {
         <Button
           form="step2"
           type="submit"
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>

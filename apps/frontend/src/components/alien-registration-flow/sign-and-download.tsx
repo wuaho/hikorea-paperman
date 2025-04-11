@@ -43,7 +43,7 @@ const formSchema = z.object({
     .min(1, { message: 'Please sign in the form.' }),
 });
 
-export function Step4Form() {
+export function SignAndDownloadForm() {
   const [isGenerating, setIsGenerating] = useState(false);
   const { state } = useStateMachine({ updateAction });
   const navigate = useNavigate();
@@ -116,7 +116,7 @@ export function Step4Form() {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Sign and Download</CardTitle>
+        <CardTitle> Sign and download</CardTitle>
         <CardDescription className="text-gray-200">
           Sign the form and download your document
         </CardDescription>
@@ -158,7 +158,7 @@ export function Step4Form() {
           </Form>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-between ">
+      <CardFooter className="flex justify-between">
         <Button
           variant="outline"
           onClick={() => {
@@ -172,7 +172,7 @@ export function Step4Form() {
         <Button
           form="step4"
           type="submit"
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
           disabled={isGenerating}
         >
           {isGenerating ? (

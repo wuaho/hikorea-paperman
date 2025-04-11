@@ -1,11 +1,10 @@
-import { AlienRegistrationFlow } from './components/alien-registration-flow';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { StateMachineProvider, createStore } from 'little-state-machine';
 import {
   Step1Form,
   Step2Form,
   Step3Form,
-  Step4Form,
+  SignAndDownloadForm,
   FormResult,
 } from './components/alien-registration-flow/index';
 import MainLayout from './components/main-layout';
@@ -39,10 +38,9 @@ function App() {
             <Route path="/step1" element={<Step1Form />} />
             <Route path="/step2" element={<Step2Form />} />
             <Route path="/step3" element={<Step3Form />} />
-            <Route path="/step4" element={<Step4Form />} />
             <Route path="/result" element={<FormResult />} />
+            <Route path="/signAndDownload" element={<SignAndDownloadForm />} />
           </Route>
-          <Route path="/old" element={<AlienRegistrationFlow />} />
         </Routes>
       </BrowserRouter>
     </StateMachineProvider>

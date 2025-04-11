@@ -14,19 +14,19 @@ import { DelayProgress } from '../ui/delay-progress';
 import { motion } from 'framer-motion';
 
 const fieldLabelsOrdered: [string, string][] = [
-  ['firstName', 'First Name'],
-  ['lastName', 'Last Name'],
+  ['firstName', 'First name'],
+  ['lastName', 'Last name'],
   ['email', 'Email'],
-  ['birthdate', 'Date of Birth'],
+  ['birthdate', 'Date of birth'],
   ['sex', 'Sex'],
   ['nationality', 'Nationality'],
-  ['passportNumber', 'Passport Number'],
-  ['passportIssueDate', 'Passport Issue Date'],
-  ['passportExpiryDate', 'Passport Expiration Date'],
-  ['mobile', 'Mobile Number'],
-  ['telephone', 'Telephone Number'],
-  ['addressKorea', 'Address in Korea'],
-  ['addressHomeCountry', 'Address in Home Country'],
+  ['passportNumber', 'Passport number'],
+  ['passportIssueDate', 'Passport issue date'],
+  ['passportExpiryDate', 'Passport expiration date'],
+  ['mobile', 'Mobile number'],
+  ['telephone', 'Telephone number'],
+  ['addressKorea', 'Address in South Korea'],
+  ['addressHomeCountry', 'Address in home country'],
 ];
 
 export const FormResult = () => {
@@ -36,7 +36,7 @@ export const FormResult = () => {
   return (
     <>
       <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Review Your Information</CardTitle>
+        <CardTitle> Review your information</CardTitle>
         <CardDescription className="text-gray-200">
           Take a moment to review and confirm your information
         </CardDescription>
@@ -68,7 +68,7 @@ export const FormResult = () => {
           </div>
         </motion.div>
       </CardContent>
-      <CardFooter className="flex justify-between ">
+      <CardFooter className="flex justify-between">
         <Button
           variant="outline"
           onClick={() => {
@@ -81,9 +81,9 @@ export const FormResult = () => {
 
         <Button
           onClick={() => {
-            navigate('/step4');
+            navigate('/signAndDownload');
           }}
-          className="bg-[#013563] hover:bg-[#014583] transition-colors"
+          className="bg-[#013563] transition-colors hover:bg-[#014583]"
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
