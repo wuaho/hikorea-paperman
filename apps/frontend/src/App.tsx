@@ -8,7 +8,7 @@ import {
   FormResult,
 } from './components/alien-registration-flow/index';
 import MainLayout from './components/main-layout';
-import { FlowSelector } from './components/flow-selector';
+import { FlowSelector } from './components/flow-selectorv2';
 
 createStore({
   data: {
