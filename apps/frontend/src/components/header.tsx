@@ -3,7 +3,7 @@ import koreaEmblem from '../assets/korea-emblem.svg';
 export default function Header() {
   return (
     <header className="bg-background fixed top-0 z-10 w-full overflow-hidden border-b-2">
-      <nav className="flex h-16 items-center justify-center px-4">
+      <nav className="flex h-16 items-center justify-center px-4 lg:m-auto lg:max-w-5xl lg:justify-between lg:p-0">
         <a aria-current="page" href="/" className="flex items-center">
           <img
             src={koreaEmblem}
