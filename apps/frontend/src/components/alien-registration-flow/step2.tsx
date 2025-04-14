@@ -25,13 +25,6 @@ import { useStateMachine } from 'little-state-machine';
 import { useNavigate } from 'react-router';
 import updateAction from './update-action';
 
-import {
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
 import CountrySelector from '../ui/country-selector';
@@ -100,44 +93,96 @@ export function Step2Form() {
 
   return (
     <>
-      <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Passport information</CardTitle>
-        <CardDescription className="text-gray-200">
-          Please fill in the required information
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <DelayProgress
-          className="mb-6"
-          initialValue={20}
-          targetValue={40}
-          delay={0}
-        />
+      <h1 className="text-korea-blue text-2xl font-bold">
+        2/5 Passport information
+      </h1>
+      {/* <h2> Please fill in the required information</h2> */}
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <Form {...form}>
-            <form
-              id="step2"
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto max-w-3xl space-y-8"
-            >
+      <DelayProgress
+        className="mb-6"
+        initialValue={20}
+        targetValue={40}
+        delay={0}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <Form {...form}>
+          <form
+            id="step2"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mx-auto max-w-3xl space-y-8"
+          >
+            <FormField
+              control={form.control}
+              name="nationality"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nationality</FormLabel>
+                  <FormControl>
+                    <CountrySelector
+                      initialCountryName={field.value}
+                      onCountryChange={(country) => {
+                        form.setValue(field.name, country?.name || '');
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="passportNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Passport number</FormLabel>
+                  <FormControl>
+                    <FormInput type="text" maxLength={9} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
                 control={form.control}
-                name="nationality"
+                name="passportIssueDate"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nationality</FormLabel>
-                    <FormControl>
-                      <CountrySelector
-                        initialCountryName={field.value}
-                        onCountryChange={(country) => {
-                          form.setValue(field.name, country?.name || '');
-                        }}
-                      />
-                    </FormControl>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Passport issue date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-full pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground',
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -145,112 +190,53 @@ export function Step2Form() {
 
               <FormField
                 control={form.control}
-                name="passportNumber"
+                name="passportExpiryDate"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Passport number</FormLabel>
-                    <FormControl>
-                      <FormInput type="text" maxLength={9} {...field} />
-                    </FormControl>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Passport expiration date</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-full pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground',
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
-              <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="passportIssueDate"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Passport issue date</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant={'outline'}
-                                className={cn(
-                                  'w-[240px] pl-3 text-left font-normal',
-                                  !field.value && 'text-muted-foreground',
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="passportExpiryDate"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Passport expiration date</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant={'outline'}
-                                className={cn(
-                                  'w-[240px] pl-3 text-left font-normal',
-                                  !field.value && 'text-muted-foreground',
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-            </form>
-          </Form>
-        </motion.div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
+            </div>
+          </form>
+        </Form>
+      </motion.div>
+      <div className="flex w-full justify-center pt-6 sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {
             navigate('/step1');
           }}
-          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>
@@ -262,7 +248,7 @@ export function Step2Form() {
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
-      </CardFooter>
+      </div>
     </>
   );
 }

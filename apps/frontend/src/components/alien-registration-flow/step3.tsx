@@ -16,13 +16,6 @@ import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
 import { ChevronRight } from 'lucide-react';
-import {
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
 import { KoreanPhoneInput } from '../ui/korean-phone-input';
@@ -72,74 +65,35 @@ export function Step3Form() {
 
   return (
     <>
-      <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Contact information</CardTitle>
-        <CardDescription className="text-gray-200">
-          Enter your contact and address information
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <DelayProgress
-          className="mb-6"
-          initialValue={40}
-          targetValue={60}
-          delay={0}
-        />
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <Form {...form}>
-            <form
-              id="step3"
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto max-w-3xl space-y-8"
-            >
-              <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="mobile"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col items-start">
-                        <FormLabel>Phone number</FormLabel>
-                        <FormControl className="w-full">
-                          <KoreanPhoneInput {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="telephone"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col items-start">
-                        <FormLabel>Telephone number</FormLabel>
-                        <FormControl className="w-full">
-                          <KoreanPhoneInput
-                            placeholder="(optional)"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
+      <h1 className="text-korea-blue text-2xl font-bold">
+        3/5 Contact information
+      </h1>
+      {/* <h2> Enter your contact and address information</h2> */}
+      <DelayProgress
+        className="mb-6"
+        initialValue={40}
+        targetValue={60}
+        delay={0}
+      />
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <Form {...form}>
+          <form
+            id="step3"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mx-auto max-w-3xl space-y-8"
+          >
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
                 control={form.control}
-                name="addressKorea"
+                name="mobile"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address in South Korea</FormLabel>
-                    <FormControl>
-                      <FormInput type="text" {...field} />
+                  <FormItem className="flex flex-col items-start">
+                    <FormLabel>Phone number</FormLabel>
+                    <FormControl className="w-full">
+                      <KoreanPhoneInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,28 +102,56 @@ export function Step3Form() {
 
               <FormField
                 control={form.control}
-                name="addressHomeCountry"
+                name="telephone"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address in your home country</FormLabel>
-                    <FormControl>
-                      <FormInput type="text" {...field} />
+                  <FormItem className="flex flex-col items-start">
+                    <FormLabel>Telephone number</FormLabel>
+                    <FormControl className="w-full">
+                      <KoreanPhoneInput placeholder="(optional)" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            </form>
-          </Form>
-        </motion.div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
+            </div>
+
+            <FormField
+              control={form.control}
+              name="addressKorea"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address in South Korea</FormLabel>
+                  <FormControl>
+                    <FormInput type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="addressHomeCountry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address in your home country</FormLabel>
+                  <FormControl>
+                    <FormInput type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </motion.div>
+      <div className="flex w-full justify-center pt-6 sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {
             navigate('/step2');
           }}
-          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>
@@ -181,7 +163,7 @@ export function Step3Form() {
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
-      </CardFooter>
+      </div>
     </>
   );
 }

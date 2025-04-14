@@ -30,13 +30,7 @@ import {
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
 import { useNavigate } from 'react-router';
-import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+
 import { FormInput } from '../ui/form-input';
 import { DelayProgress } from '../ui/delay-progress';
 import { motion } from 'framer-motion';
@@ -107,159 +101,148 @@ export function Step1Form() {
 
   return (
     <>
-      <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Personal information</CardTitle>
-        <CardDescription className="text-gray-200">
-          Provide your basic personal information to get started
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <DelayProgress
-          className="mb-6"
-          initialValue={0}
-          targetValue={20}
-          delay={0}
-        />
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <Form {...form}>
-            <form
-              id="step1"
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto max-w-3xl space-y-8"
-            >
-              <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>First name</FormLabel>
-                        <FormControl>
-                          <FormInput type="text" maxLength={50} {...field} />
-                        </FormControl>
+      <h1 className="text-korea-blue text-2xl font-bold">
+        1/5 Personal Information
+      </h1>
+      {/* <h2> Provide your basic personal information to get started</h2> */}
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Last name</FormLabel>
-                        <FormControl>
-                          <FormInput type="text" maxLength={50} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
+      <DelayProgress
+        className="mb-6"
+        initialValue={0}
+        targetValue={20}
+        delay={0}
+      />
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <Form {...form}>
+          <form
+            id="step1"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mx-auto max-w-3xl space-y-8"
+          >
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
                 control={form.control}
-                name="email"
+                name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>First name</FormLabel>
                     <FormControl>
-                      <FormInput type="email" maxLength={320} {...field} />
+                      <FormInput type="text" maxLength={50} {...field} />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="birthdate"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Date of birth</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                variant={'outline'}
-                                className={cn(
-                                  'w-[240px] pl-3 text-left font-normal',
-                                  !field.value && 'text-muted-foreground',
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, 'PPP')
-                                ) : (
-                                  <span>Pick a date</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last name</FormLabel>
+                    <FormControl>
+                      <FormInput type="text" maxLength={50} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-                <div className="col-span-6">
-                  <FormField
-                    control={form.control}
-                    name="sex"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Sex</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl className="hover:bg-zinc-100 hover:text-zinc-900">
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select one" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="female">Female</SelectItem>
-                            <SelectItem value="male">Male</SelectItem>
-                          </SelectContent>
-                        </Select>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <FormInput type="email" maxLength={320} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-            </form>
-          </Form>
-        </motion.div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="birthdate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Date of birth</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-full pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground',
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="sex"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sex</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl className="hover:bg-zinc-100 hover:text-zinc-900">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </form>
+        </Form>
+      </motion.div>
+      <div className="flex w-full justify-center pt-6 sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {
-            navigate('/');
+            navigate('/selectFlow');
           }}
-          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>
@@ -271,7 +254,7 @@ export function Step1Form() {
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
-      </CardFooter>
+      </div>
     </>
   );
 }

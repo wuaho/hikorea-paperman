@@ -15,13 +15,6 @@ import {
 import SignatureInput from '@/components/ui/signature-input';
 import { useNavigate } from 'react-router';
 import { FileDown } from 'lucide-react';
-import {
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
 import { DelayProgress } from '../ui/delay-progress';
 import { useStateMachine } from 'little-state-machine';
 import updateAction from './update-action';
@@ -115,56 +108,52 @@ export function SignAndDownloadForm() {
 
   return (
     <>
-      <CardHeader className="bg-[#013563] text-white">
-        <CardTitle> Sign and download</CardTitle>
-        <CardDescription className="text-gray-200">
-          Sign the form and download your document
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <DelayProgress
-          className="mb-6"
-          initialValue={80}
-          targetValue={100}
-          delay={0}
-        />
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <Form {...form}>
-            <form
-              id="step4"
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
-              <FormField
-                control={form.control}
-                name="signature"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <div>
-                      <FormLabel>Sign here</FormLabel>
-                    </div>
-                    <SignatureInput
-                      canvasRef={canvasRef}
-                      onSignatureChange={field.onChange}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </form>
-          </Form>
-        </motion.div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
+      <h1 className="text-korea-blue text-2xl font-bold">
+        5/5 Sign and download
+      </h1>
+      {/* <h2> Sign the form and download your document</h2> */}
+      <DelayProgress
+        className="mb-6"
+        initialValue={80}
+        targetValue={100}
+        delay={0}
+      />
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <Form {...form}>
+          <form
+            id="step4"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="signature"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <div>
+                    <FormLabel>Sign here</FormLabel>
+                  </div>
+                  <SignatureInput
+                    canvasRef={canvasRef}
+                    onSignatureChange={field.onChange}
+                  />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </motion.div>
+      <div className="flex w-full justify-center pt-6 sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {
             navigate('/result');
           }}
-          className="border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white"
+          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>
@@ -184,7 +173,7 @@ export function SignAndDownloadForm() {
             </>
           )}
         </Button>
-      </CardFooter>
+      </div>
     </>
   );
 }

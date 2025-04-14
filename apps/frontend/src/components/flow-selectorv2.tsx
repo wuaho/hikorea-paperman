@@ -1,29 +1,14 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
-import mascotImage from '../assets/hikorea-mascot.webp';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from './ui/card';
 
 export function FlowSelector() {
   const navigate = useNavigate();
 
   return (
     <>
-      <img
-        src={mascotImage}
-        alt="HiKorea Mascot"
-        className="hidden w-60 py-4 md:inline md:w-72"
-      />
       <h1 className="text-custom-grey my-10 px-1 text-center text-3xl font-bold">
         What can I help you with?
       </h1>
