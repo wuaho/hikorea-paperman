@@ -11,6 +11,7 @@ export default {
       },
       colors: {
         'korea-blue': '#013563',
+        'korea-blue-hover': '#014597',
         'custom-grey': '#3b3b3b',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

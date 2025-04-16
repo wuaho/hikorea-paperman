@@ -20,7 +20,7 @@ export function FlowSelector() {
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] justify-center gap-4">
           <Card
             onClick={() => navigate('/step1')}
-            className="bg-korea-blue cursor-pointer text-zinc-50 transition-colors hover:bg-[#014583]"
+            className="bg-korea-blue hover:bg-korea-blue-hover cursor-pointer text-zinc-50 transition-colors"
           >
             <CardHeader>
               <CardTitle className="text-inherit">

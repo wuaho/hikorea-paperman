@@ -153,7 +153,7 @@ export function SignAndDownloadForm() {
           onClick={() => {
             navigate('/result');
           }}
-          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
+          className="hover:bg-korea-blue-hover hidden border-[#013563] text-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>
@@ -161,7 +161,7 @@ export function SignAndDownloadForm() {
         <Button
           form="step4"
           type="submit"
-          className="bg-[#013563] transition-colors hover:bg-[#014583]"
+          className="hover:bg-korea-blue-hover bg-[#013563] transition-colors"
           disabled={isGenerating}
         >
           {isGenerating ? (

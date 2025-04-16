@@ -81,7 +81,7 @@ export const FormResult = () => {
           onClick={() => {
             navigate('/step3');
           }}
-          className="hidden border-[#013563] text-[#013563] hover:bg-[#013563] hover:text-white sm:inline-flex"
+          className="hover:bg-korea-blue-hover hidden border-[#013563] text-[#013563] hover:text-white sm:inline-flex"
         >
           Back
         </Button>

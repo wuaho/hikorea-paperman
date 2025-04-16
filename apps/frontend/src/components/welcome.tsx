@@ -25,7 +25,7 @@ export function WelcomePage() {
       >
         <Button
           onClick={() => navigate('/selectFlow')}
-          className="bg-korea-blue shadow-korea-blue/50 mt-14 h-12 rounded-lg px-24 shadow-md transition-colors hover:bg-[#014583]"
+          className="bg-korea-blue shadow-korea-blue/50 hover:bg-korea-blue-hover mt-14 h-12 rounded-lg px-24 shadow-md"
         >
           <span>
             <b> GET STARTED</b>

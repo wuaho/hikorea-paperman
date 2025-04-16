@@ -244,7 +244,7 @@ export function Step2Form() {
         <Button
           form="step2"
           type="submit"
-          className="bg-[#013563] transition-colors hover:bg-[#014583]"
+          className="hover:bg-korea-blue-hover bg-[#013563] transition-colors"
         >
           Next <ChevronRight className="ml-2 h-4 w-4" />
         </Button>
