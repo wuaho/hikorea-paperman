@@ -9,7 +9,7 @@ import {
 } from './components/alien-registration-flow/index';
 import MainLayout from './components/main-layout';
 import { WelcomePage } from './components/welcome';
-import { FlowSelector } from './components/flow-selectorv2';
+import { FlowSelector } from './components/flow-selector';
 
 createStore({
   data: {

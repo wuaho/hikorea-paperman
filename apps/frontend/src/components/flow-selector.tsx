@@ -1,64 +1,69 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import {
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router';
+import { Card, CardDescription, CardHeader, CardTitle } from './ui/card';
 
 export function FlowSelector() {
   const navigate = useNavigate();
 
   return (
     <>
-      <CardHeader className="bg-[#013563] text-white">
-        <CardTitle>Welcome</CardTitle>
-        <CardDescription className="text-gray-200">
-          What can I help you with?
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="space-y-4">
-            <Button
-              className="w-full justify-start bg-[#013563] transition-colors hover:bg-[#014583]"
-              onClick={() => navigate('/step1')}
-            >
-              Foreign resident registration
-            </Button>
-            <Button
-              className="w-full cursor-not-allowed justify-start bg-gray-300 text-gray-600"
-              disabled
-            >
-              Extend visa
-            </Button>
-            <Button
-              className="w-full cursor-not-allowed justify-start bg-gray-300 text-gray-600"
-              disabled
-            >
-              Change status of visa
-            </Button>
-          </div>
-        </motion.div>
-      </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button
-          onClick={() => navigate('/step1')}
-          className="bg-[#013563] transition-colors hover:bg-[#014583]"
-        >
-          Start <ChevronRight className="ml-2 h-4 w-4" />
-        </Button>
-      </CardFooter>
+      <h1 className="text-custom-grey my-10 px-1 text-center text-3xl font-bold">
+        What can I help you with?
+      </h1>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <ul className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] justify-center gap-4">
+          <Card
+            onClick={() => navigate('/step1')}
+            className="bg-korea-blue cursor-pointer text-zinc-50 transition-colors hover:bg-[#014583]"
+          >
+            <CardHeader>
+              <CardTitle className="text-inherit">
+                Foreign resident registration
+              </CardTitle>
+              <CardDescription className="text-inherit">
+                Register as a foreign resident to stay in Korea long-term.
+                Required for visa holders after arrival.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="bg-gray-300 text-gray-600 opacity-50">
+            <CardHeader>
+              <CardTitle className="text-inherit">Extend visa</CardTitle>
+              <CardDescription className="text-inherit">
+                Apply to extend your stay in Korea before your current visa
+                expires.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="bg-gray-300 text-gray-600 opacity-50">
+            <CardHeader>
+              <CardTitle className="text-inherit">
+                Change status of visa
+              </CardTitle>
+              <CardDescription className="text-inherit">
+                Request a change to a different visa type without leaving Korea.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="bg-gray-300 text-gray-600 opacity-50">
+            <CardHeader>
+              <CardTitle className="text-inherit">
+                Reissue residence card
+              </CardTitle>
+              <CardDescription className="text-inherit">
+                Request a new residence card if yours is lost, damaged, or needs
+                an update.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </ul>
+      </motion.div>
     </>
   );
 }
