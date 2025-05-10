@@ -51,11 +51,8 @@ The goal is to provide an interactive flow where users are asked what they need,
 - Implement additional flows for other immigration-related needs, building on the foundation created in Phase 1.
 - Focus on integrating flows that provide tangible value to users.
 - Enhance the user interface (UI) as this is my first project working with frontend technologies.
+  - ✅ Made a responsive version for mobile! [https://m.hikorea.juanjorequena.com](https://m.hikorea.juanjorequena.com)
 
-### **Phase 3: Complete Redesign**
-
-- Reimagine the Hi Korea Immigration Portal as if I were the one responsible for creating its official application.
-- Focus on innovation and creating a seamless, modern user experience that fully transforms the portal.
 
 ## Tech Stack
 
