@@ -35,7 +35,7 @@ export const FormResult = () => {
   return (
     <>
       <DelayProgress
-        className="mb-6 mt-4"
+        className="mb-10 mt-4"
         initialValue={60}
         targetValue={80}
         delay={0}
@@ -44,7 +44,7 @@ export const FormResult = () => {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
       >
-        <h1 className="text-korea-blue mb-4 text-2xl font-bold">
+        <h1 className="text-korea-blue mb-7 text-2xl font-bold">
           Review your information
         </h1>
         {/* <h2> Take a moment to review and confirm your information</h2> */}
@@ -73,7 +73,7 @@ export const FormResult = () => {
           </CardContent>
         </Card>
       </motion.div>
-      <div className="flex w-full justify-center pt-6 sm:justify-between">
+      <div className="mt-8 flex w-full justify-center sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {

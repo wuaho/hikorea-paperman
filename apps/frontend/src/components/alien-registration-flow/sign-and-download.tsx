@@ -110,7 +110,7 @@ export function SignAndDownloadForm() {
     <>
       {/* <h2> Sign the form and download your document</h2> */}
       <DelayProgress
-        className="mb-6 mt-4"
+        className="mb-10 mt-4"
         initialValue={80}
         targetValue={100}
         delay={0}
@@ -118,8 +118,9 @@ export function SignAndDownloadForm() {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
+        className="w-full"
       >
-        <h1 className="text-korea-blue mb-4 text-2xl font-bold">
+        <h1 className="text-korea-blue mb-7 text-2xl font-bold">
           Sign and download
         </h1>
         <Form {...form}>
@@ -128,7 +129,7 @@ export function SignAndDownloadForm() {
               control={form.control}
               name="signature"
               render={({ field }) => (
-                <FormItem className="flex w-dvw max-w-max flex-col">
+                <FormItem className="flex w-full max-w-max flex-col">
                   <div>
                     <FormLabel>Sign here</FormLabel>
                   </div>
@@ -143,7 +144,7 @@ export function SignAndDownloadForm() {
           </form>
         </Form>
       </motion.div>
-      <div className="flex w-full justify-center pt-6 sm:justify-between">
+      <div className="mt-8 flex w-full justify-center sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {

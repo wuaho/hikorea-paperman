@@ -65,7 +65,7 @@ export function Step3Form() {
   return (
     <>
       <DelayProgress
-        className="mb-6 mt-4"
+        className="mb-10 mt-4"
         initialValue={40}
         targetValue={60}
         delay={0}
@@ -76,16 +76,16 @@ export function Step3Form() {
         animate={{ opacity: 1, x: 0 }}
         className="w-full"
       >
-        <h1 className="text-korea-blue mb-4 text-2xl font-bold">
+        <h1 className="text-korea-blue mb-7 text-2xl font-bold">
           Contact information
         </h1>
         <Form {...form}>
           <form
             id="step3"
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto max-w-3xl space-y-8"
+            className="mx-auto max-w-3xl space-y-6"
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <FormField
                 control={form.control}
                 name="mobile"
@@ -145,7 +145,7 @@ export function Step3Form() {
           </form>
         </Form>
       </motion.div>
-      <div className="flex w-full justify-center pt-6 sm:justify-between">
+      <div className="mt-8 flex w-full justify-center sm:justify-between">
         <Button
           variant="outline"
           onClick={() => {
