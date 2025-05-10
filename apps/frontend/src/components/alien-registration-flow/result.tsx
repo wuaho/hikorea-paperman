@@ -1,6 +1,5 @@
 import { GlobalStateData, useStateMachine } from 'little-state-machine';
 import { Button } from '../ui/button';
-import { ChevronRight } from 'lucide-react';
 import updateAction from './update-action';
 import {
   CardContent,
