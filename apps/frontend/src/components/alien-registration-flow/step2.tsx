@@ -93,22 +93,24 @@ export function Step2Form() {
 
   return (
     <>
-      <h1 className="text-korea-blue text-2xl font-bold">
-        2/5 Passport information
-      </h1>
-      {/* <h2> Please fill in the required information</h2> */}
-
       <DelayProgress
-        className="mb-6"
+        className="mb-6 mt-4"
         initialValue={20}
         targetValue={40}
         delay={0}
       />
 
+      {/* <h2> Please fill in the required information</h2> */}
+
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
+        className="w-full"
       >
+        <h1 className="text-korea-blue mb-4 text-2xl font-bold sm:text-center">
+          Passport information
+        </h1>
+
         <Form {...form}>
           <form
             id="step2"
@@ -242,11 +244,12 @@ export function Step2Form() {
         </Button>
 
         <Button
+          variant="next"
           form="step2"
           type="submit"
-          className="hover:bg-korea-blue-hover bg-[#013563] transition-colors"
+          className="w-full sm:w-auto"
         >
-          Next <ChevronRight className="ml-2 h-4 w-4" />
+          Next
         </Button>
       </div>
     </>

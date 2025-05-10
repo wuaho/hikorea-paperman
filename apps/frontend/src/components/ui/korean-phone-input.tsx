@@ -34,15 +34,15 @@ const KoreanPhoneInput = React.forwardRef<
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex w-full items-center">
       <KoreaCountrySelect />
-      <div className="flex items-center">
+      <div className="flex w-full items-center">
         <Input
           ref={ref}
           value={value}
           onChange={handleInputChange}
           className={cn(
-            'rounded-e-lg rounded-s-none hover:bg-zinc-100 hover:text-zinc-900',
+            '" w-full rounded-e-lg rounded-s-none hover:bg-zinc-100 hover:text-zinc-900',
             className,
           )}
           {...props}
@@ -57,7 +57,7 @@ const KoreaCountrySelect = () => {
     <Button
       type="button"
       variant="outline"
-      className="disabled:opacity-100 flex gap-1 rounded-e-none rounded-s-lg border-r-0 px-1 focus:z-10 pointer-events-none"
+      className="pointer-events-none flex gap-1 rounded-e-none rounded-s-lg border-r-0 px-1 focus:z-10 disabled:opacity-100"
       disabled
     >
       <FlagComponent />
@@ -69,7 +69,7 @@ const FlagComponent = () => {
   const Flag = flags['KR'];
 
   return (
-    <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20">
+    <span className="bg-foreground/20 flex h-4 w-6 overflow-hidden rounded-sm [&_svg]:size-full">
       {Flag && <Flag title="South Korea" />}{' '}
     </span>
   );

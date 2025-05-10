@@ -35,28 +35,28 @@ export const FormResult = () => {
 
   return (
     <>
-      <h1 className="text-korea-blue text-2xl font-bold">
-        4/5 Review your information
-      </h1>
       <DelayProgress
-        className="mb-6"
+        className="mb-6 mt-4"
         initialValue={60}
         targetValue={80}
         delay={0}
       />
-      {/* <h2> Take a moment to review and confirm your information</h2> */}
-      <Card>
-        <CardHeader className="bg-[#013563] text-white">
-          <CardTitle> Your information</CardTitle>
-          <CardDescription className="text-gray-200">
-            Take a moment to review and confirm your information
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+      >
+        <h1 className="text-korea-blue mb-4 text-2xl font-bold">
+          Review your information
+        </h1>
+        {/* <h2> Take a moment to review and confirm your information</h2> */}
+        <Card>
+          <CardHeader className="bg-[#013563] text-white">
+            <CardTitle> Your information</CardTitle>
+            <CardDescription className="text-gray-200">
+              Take a moment to review and confirm your information
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="space-y-4">
               {fieldLabelsOrdered.map((field) => (
                 <p
@@ -71,10 +71,9 @@ export const FormResult = () => {
                 </p>
               ))}
             </div>
-          </motion.div>
-        </CardContent>
-      </Card>
-
+          </CardContent>
+        </Card>
+      </motion.div>
       <div className="flex w-full justify-center pt-6 sm:justify-between">
         <Button
           variant="outline"
@@ -87,12 +86,13 @@ export const FormResult = () => {
         </Button>
 
         <Button
+          variant="next"
           onClick={() => {
             navigate('/signAndDownload');
           }}
-          className="bg-[#013563] transition-colors hover:bg-[#014583]"
+          className="w-full sm:w-auto"
         >
-          Next <ChevronRight className="ml-2 h-4 w-4" />
+          Next
         </Button>
       </div>
     </>

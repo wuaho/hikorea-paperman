@@ -108,12 +108,9 @@ export function SignAndDownloadForm() {
 
   return (
     <>
-      <h1 className="text-korea-blue text-2xl font-bold">
-        5/5 Sign and download
-      </h1>
       {/* <h2> Sign the form and download your document</h2> */}
       <DelayProgress
-        className="mb-6"
+        className="mb-6 mt-4"
         initialValue={80}
         targetValue={100}
         delay={0}
@@ -122,17 +119,16 @@ export function SignAndDownloadForm() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
       >
+        <h1 className="text-korea-blue mb-4 text-2xl font-bold">
+          Sign and download
+        </h1>
         <Form {...form}>
-          <form
-            id="step4"
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
-          >
+          <form id="step4" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="signature"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem className="flex w-dvw max-w-max flex-col">
                   <div>
                     <FormLabel>Sign here</FormLabel>
                   </div>
@@ -159,9 +155,10 @@ export function SignAndDownloadForm() {
         </Button>
 
         <Button
+          variant="next"
           form="step4"
           type="submit"
-          className="hover:bg-korea-blue-hover bg-[#013563] transition-colors"
+          className="w-full sm:w-auto"
           disabled={isGenerating}
         >
           {isGenerating ? (
